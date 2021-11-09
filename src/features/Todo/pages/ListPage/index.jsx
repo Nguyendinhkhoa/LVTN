@@ -4,6 +4,7 @@ import TodoList from '../../components/TodoList';
 import queryString from 'query-string';
 import { useHistory, useLocation, useRouteMatch } from 'react-router';
 import { useSelector } from 'react-redux';
+import TodoForm from '../../components/TodoForm';
 
 function ListPage(props) {
     const initTodoList = [
@@ -28,8 +29,6 @@ function ListPage(props) {
     const history = useHistory();
     const match = useRouteMatch();
     const params = queryString.parse(location.search);
-    console.log(params);
-    console.log(history);
     useEffect(()=>{
         const params = queryString.parse(location.search);
         SetFilterStatus(params.status || 'all');
@@ -75,8 +74,22 @@ function ListPage(props) {
     const renderTodoList = todoList.filter(todo =>filterStatus==='all' || filterStatus === todo.status);
     // console.log(renderTodoList);
     const counter = useSelector(state => state.counter);
+    const handleTodoFormSubmit = (values) =>{
+        console.log('hihi');
+        const newTodo = {
+            id : todoList.length+2,
+            title : values.title,
+            status : " completed",
+        }
+        const newTodoList = [...todoList, newTodo];
+        SetTodoList(newTodoList);
+    }
     return (
         <div>
+
+            <h3>Todo form</h3>
+            <div className="container">            <TodoForm onSubmit={handleTodoFormSubmit}/></div>
+
             <h3>TodoList</h3>
             <span>{counter} nè</span>
             <TodoList todoList={renderTodoList} onTodoClick = {handleTodoClick}/>

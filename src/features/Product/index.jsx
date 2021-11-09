@@ -109,7 +109,7 @@ function Product(props) {
         <div>
 
 <SlideInProduct/>
-            <div className="ltn__product-area ltn__product-gutter mb-120">
+<div className="ltn__product-area ltn__product-gutter mb-120">
   <div className="container">
     <div className="row">
       <div className="col-lg-8 order-lg-2 mb-120">
@@ -119,12 +119,11 @@ function Product(props) {
               <div className="short-by text-center">
                 <select className="nice-select">
                   <option >Default Sorting</option>
-                  <option onChange={()=>{ alert('123');}}>Sort by popularity</option>
+                  <option >Sort by popularity</option>
                   <option>Sort by new arrivals</option>
                   <option>Sort by price: low to high</option>
                   <option>Sort by price: high to low</option>
                 </select>
-
               </div> 
             </li>
           </ul>
@@ -133,7 +132,6 @@ function Product(props) {
           <div className="tab-pane fade active show" id="liton_product_grid">
             <div className="ltn__product-tab-content-inner ltn__product-grid-view">
               <div className="row">
-
             {loading ? <ProductSkelatonList/> :<ProductList data={listProduct}/>}  
               </div>
             </div>
@@ -158,8 +156,6 @@ function Product(props) {
     </div>
   </div>
 </div>
-
-            đây là trang product
         </div>
     );
 }

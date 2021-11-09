@@ -7,6 +7,7 @@ import HeaderMiddle from './HeaderMiddle';
 import HeaderBottom from './HeaderBottom';
 import classnames from "classnames";
 import MobileMenu from './MobileMenu';
+import bootstrap from 'bootstrap' ;
 
 
 function Header(props) {

@@ -13,6 +13,8 @@ import Footer from './components/Footer';
 import HomePage from './features/HomePage';
 import Product from './features/Product';
 import DetailProduct from './features/Product/pages/DetailProduct/DetailProduct';
+import Login from './features/Login/Login';
+import SignUp from './features/Register/SignUp';
 
 
 
@@ -60,6 +62,8 @@ function App() {
       <Route path='/album' component={AlbumFeature}></Route>
       <Route path='/products' component={Product}></Route>
       <Route path='/product-detail/:slug' component={DetailProduct}></Route>
+      <Route path='/register' component={SignUp}></Route>
+      <Route path='/login' component={Login}></Route>
       <Route component={NotFound}></Route>
       </Switch>
       <Footer/>

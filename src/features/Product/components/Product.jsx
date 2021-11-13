@@ -9,7 +9,7 @@ Product.propTypes = {
 
 function Product({product}) {
     return (
-        <div>
+        <div className="col-xl-4 col-sm-6 col-6">
                   <div className="ltn__product-item ltn__product-item-3 text-center">
                     <Box minHeight="255px">
                     <div className="product-img" >
@@ -17,20 +17,12 @@ function Product({product}) {
                     </div>
                     </Box>
                     <div className="product-info">
-                      <div className="product-ratting">
-                        <ul>
-                          <li><a href="#"><i className="fas fa-star" /></a></li>
-                          <li><a href="#"><i className="fas fa-star" /></a></li>
-                          <li><a href="#"><i className="fas fa-star" /></a></li>
-                          <li><a href="#"><i className="fas fa-star-half-alt" /></a></li>
-                          <li><a href="#"><i className="far fa-star" /></a></li>
-                        </ul>
-                      </div>
+
                       <h2 className="product-title"><a href="product-details.html">{product.name}</a></h2>
                       <div className="product-price">
-                        <span>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
-                        <del>$162.000</del>
-                      </div>
+                        <span>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}₫</span>
+                        <del>$162.000 ₫</del>
+                      </div>                                                      
                     </div>
                   </div>
         </div>

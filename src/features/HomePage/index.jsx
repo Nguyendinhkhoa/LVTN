@@ -1,183 +1,140 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import categoryApi from '../../api/categoryApi';
-import { Redirect, Route, Switch } from 'react-router';
-import ListPage from '../Todo/pages/ListPage';
 import { Link } from 'react-router-dom';
-
-HomePage.propTypes = {
-    
-};
-
+import './style.css';
+import trolley_8 from './images/8-trolley.svg';
+import money_9 from './images/9-money.svg';
+import credit_card_10 from './images/10-credit-card.svg';
+import gift_card_11 from './images/11-gift-card.svg';
 function HomePage(props) {
-    const [todoStatus,SetTodoStatus]= useState([
-        {
-        id: 1, 
-        status : 'all',
-    },
-        {
-        id: 2, 
-        status : 'completed',
-    }
-]);
+  const [listCate, SetlistCate] = useState([]);
+  useEffect(() => {
+    const fecthCategory = async () => {
+      const categoryList = await categoryApi.getAll();
+      const arrCate = categoryList.results;
+      SetlistCate(arrCate);
+    };
 
-    const [test,SetTest] =useState([]);
-    const [listCate, SetlistCate] = useState([]);
-    useEffect(()=>{
-        const fecthCategory = async () =>{
-          const params = {
+    fecthCategory();
+  }, []);
 
-          }
-          const categoryList = await categoryApi.getAll();
-          const arrCate = categoryList.results ;
-          SetlistCate(arrCate);
-        }
-    
-        fecthCategory();
-      },[]);
-      console.log(listCate);
-
-
-
-    return (
-        <>
-        <div className="ltn__slider-area ltn__slider-3---  section-bg-1--- mt-30">
-            <div className="container">
-                <div className="row">
-                <div className="col-lg-3">
-                    {/* CATEGORY-MENU-LIST START */}
-                    <div className="ltn__category-menu-wrap">
-                    <div className="ltn__category-menu-title">
-                        <h2 className="section-bg-1 ltn__secondary-bg text-color-white" >Categories</h2>
-                    </div>
-                    <div className="ltn__category-menu-toggle ltn__one-line-active">
-                        <ul>
-
-                        { listCate && listCate.length >0 && listCate.map((cate,ind)=>{
-                            return(
-                                <li key={cate.id} className="ltn__category-menu-item ltn__category-menu-drop" >
-                                    <Link  to={`/products?category=${cate.slug}`}>{cate.name} <span className="expand" /></Link>
-                                </li>
-                                )
-                            }) }
-                        </ul>
-                    </div>
-                    </div>
-                    {/* END CATEGORY-MENU-LIST */}
+  return (
+    <>
+      <div className="ltn__slider-area ltn__slider-3---  section-bg-1--- mt-30">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3 ">
+              {/* CATEGORY-MENU-LIST START */}
+              <div className="ltn__category-menu-wrap">
+                <div className="ltn__category-menu-title">
+                  <h2 className="section-bg-1 ltn__secondary-bg text-color-white">Categories</h2>
                 </div>
-                <div className="col-lg-9">
-                    <div className="ltn__slide-active-2 slick-slide-arrow-1 slick-slide-dots-1 slick-initialized slick-slider slick-dotted" role="toolbar">
-                    {/* ltn__slide-item */}
-                    <div aria-live="polite" className="slick-list draggable"><div className="slick-track" style={{opacity: 1, width: '1740px'}} role="listbox"><div className="ltn__slide-item ltn__slide-item-10 section-bg-1 bg-image slick-slide slick-current slick-active" data-bs-bg="img/slider/61.jpg" data-slick-index={0} style={{backgroundImage: 'url("img/slider/61.jpg")', width: '870px', position: 'relative', left: '0px', top: '0px', zIndex: 999, opacity: 1}} aria-hidden="false" tabIndex={-1} role="option" aria-describedby="slick-slide00">
-                            <div className="ltn__slide-item-inner">
-                            <div className="container">
-                                <div className="row">
-                                <div className="col-lg-7 col-md-7 col-sm-7 align-self-center">
-                                    <div className="slide-item-info">
-                                    <div className="slide-item-info-inner ltn__slide-animation">
-                                        <h5 className="slide-sub-title ltn__secondary-color animated text-uppercase">Up To 50% Off Today Only!</h5>
-                                        <h1 className="slide-title  animated">Gold Standard <br />Pre-Workout</h1>
-                                        <h5 className="color-orange  animated">Starting at &amp;16.99</h5>
-                                        <div className="slide-brief animated d-none">
-                                        <p>Predictive analytics is drastically changing the real estate industry. In the past, providing data for quick</p>
-                                        </div>
-                                        <div className="btn-wrapper  animated">
-                                        <a href="shop.html" className="theme-btn-1 btn btn-effect-1 text-uppercase" tabIndex={0}>Shop now</a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 col-md-5 col-sm-5 align-self-center">
-                                    <div className="slide-item-img">
-                                    {/* <a href="shop.html"><img src="img/product/1.png" alt="Image"></a> */}
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div><div className="ltn__slide-item ltn__slide-item-10 section-bg-1 bg-image slick-slide" data-bs-bg="img/slider/62.jpg" data-slick-index={1} style={{backgroundImage: 'url("img/slider/62.jpg")', width: '870px', position: 'relative', left: '-870px', top: '0px', zIndex: 998, opacity: 0}} aria-hidden="true" tabIndex={-1} role="option" aria-describedby="slick-slide01">
-                            <div className="ltn__slide-item-inner">
-                            <div className="container">
-                                <div className="row">
-                                <div className="col-lg-7 col-md-7 col-sm-7 align-self-center">
-                                    <div className="slide-item-info">
-                                    <div className="slide-item-info-inner ltn__slide-animation">
-                                        <h4 className="slide-sub-title ltn__secondary-color animated text-uppercase">Welcome to our shop</h4>
-                                        <h1 className="slide-title  animated">Gold Standard <br />Pre-Workout</h1>
-                                        <div className="slide-brief animated d-none">
-                                        <p>Predictive analytics is drastically changing the real estate industry. In the past, providing data for quick</p>
-                                        </div>
-                                        <div className="btn-wrapper  animated">
-                                        <a href="shop.html" className="theme-btn-1 btn btn-effect-1 text-uppercase" tabIndex={-1}>Shop now</a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 col-md-5 col-sm-5 align-self-center">
-                                    <div className="slide-item-img">
-                                    {/* <a href="shop.html"><img src="img/slider/62.jpg" alt="Image"></a> */}
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div></div></div>
-                    {/* ltn__slide-item */}
-                    <ul className="slick-dots" style={{}} role="tablist"><li className="slick-active" aria-hidden="false" role="presentation" aria-selected="true" aria-controls="navigation00" id="slick-slide00"><button type="button" data-role="none" role="button" tabIndex={0}>1</button></li><li aria-hidden="true" role="presentation" aria-selected="false" aria-controls="navigation01" id="slick-slide01"><button type="button" data-role="none" role="button" tabIndex={0}>2</button></li></ul></div>
+                <div className="ltn__category-menu-toggle ltn__one-line-active">
+                  <ul>
+                    {listCate &&
+                      listCate.length > 0 &&
+                      listCate.map((cate, ind) => {
+                        return (
+                          <li
+                            key={cate.id}
+                            className="ltn__category-menu-item ltn__category-menu-drop"
+                          >
+                            <Link to={`/products?category=${cate.slug}`}>
+                              <img width="30px" height="30px" src={cate.image} alt="" />
+                              <span className="expandcate">{cate.name}</span>{' '}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                  </ul>
                 </div>
+              </div>
+              {/* END CATEGORY-MENU-LIST */}
+            </div>
+            <div className="col-lg-9">
+              <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <img src="..." className="d-block w-100" alt="..." />
+                  </div>
+                  <div className="carousel-item">
+                    <img src="..." className="d-block w-100" alt="..." />
+                  </div>
+                  <div className="carousel-item">
+                    <img src="..." className="d-block w-100" alt="..." />
+                  </div>
                 </div>
-            </div>
-        </div>
-        <div className="ltn__feature-area mt-35 mt--65---">
-  <div className="container">
-    <div className="row">
-      <div className="col-lg-12">
-        <div className="ltn__feature-item-box-wrap ltn__feature-item-box-wrap-2 ltn__border section-bg-1">
-          <div className="ltn__feature-item ltn__feature-item-8">
-            <div className="ltn__feature-icon">
-              <img src="../../img/icons/svg/8-trolley.svg" alt="#" />
-            </div>
-            <div className="ltn__feature-info">
-              <h4>Free shipping</h4>
-              <p>On all orders over $49.00</p>
-            </div>
-          </div>
-          <div className="ltn__feature-item ltn__feature-item-8">
-            <div className="ltn__feature-icon">
-              <img src="../../img/icons/svg/9-money.svg" alt="#" />
-            </div>
-            <div className="ltn__feature-info">
-              <h4>15 days returns</h4>
-              <p>Moneyback guarantee</p>
-            </div>
-          </div>
-          <div className="ltn__feature-item ltn__feature-item-8">
-            <div className="ltn__feature-icon">
-              <img src="../../img/icons/svg/10-credit-card.svg" alt="#" />
-            </div>
-            <div className="ltn__feature-info">
-              <h4>Secure checkout</h4>
-              <p>Protected by Paypal</p>
-            </div>
-          </div>
-          <div className="ltn__feature-item ltn__feature-item-8">
-            <div className="ltn__feature-icon">
-              <img src="../../img/icons/svg/11-gift-card.svg" alt="#" />
-            </div>
-            <div className="ltn__feature-info">
-              <h4>Offer &amp; gift here</h4>
-              <p>On all orders over</p>
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="prev"
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="next"
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-
-        </>
-    );
+      <div className="ltn__feature-area mt-35 mt--65---">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="ltn__feature-item-box-wrap ltn__feature-item-box-wrap-2 ltn__border section-bg-1">
+                <div className="ltn__feature-item ltn__feature-item-8">
+                  <div className="ltn__feature-icon">
+                    <img src={trolley_8} alt="#" />
+                  </div>
+                  <div className="ltn__feature-info">
+                    <h4>Free shipping</h4>
+                    <p>On all orders over $49.00</p>
+                  </div>
+                </div>
+                <div className="ltn__feature-item ltn__feature-item-8">
+                  <div className="ltn__feature-icon">
+                    <img src={money_9}alt="#" />
+                  </div>
+                  <div className="ltn__feature-info">
+                    <h4>15 days returns</h4>
+                    <p>Moneyback guarantee</p>
+                  </div>
+                </div>
+                <div className="ltn__feature-item ltn__feature-item-8">
+                  <div className="ltn__feature-icon">
+                    <img src={credit_card_10} alt="#" />
+                  </div>
+                  <div className="ltn__feature-info">
+                    <h4>Secure checkout</h4>
+                    <p>Protected by Paypal</p>
+                  </div>
+                </div>
+                <div className="ltn__feature-item ltn__feature-item-8">
+                  <div className="ltn__feature-icon">
+                    <img src={gift_card_11} alt="#" />
+                  </div>
+                  <div className="ltn__feature-info">
+                    <h4>Offer &amp; gift here</h4>
+                    <p>On all orders over</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default HomePage;

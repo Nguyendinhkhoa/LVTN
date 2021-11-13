@@ -12,15 +12,13 @@ ProductList.defaultProps = {
 }
 function ProductList({data}) {
     return (
-        <Box>
-            <Grid container>
+
+        <>
                 {data.map((product,index)=>(
-                    <Grid item key={product.id} xs={12} sm={6} md={4} lg={4}>
-                        <Product product={product}/>
-                    </Grid>
+                        <Product key={product.id} product={product}/>
                 ))}
-            </Grid>
-        </Box>
+
+        </>
     );
 }
 

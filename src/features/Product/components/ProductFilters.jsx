@@ -9,7 +9,6 @@ ProductFilter.propTypes = {
 };
 
 function ProductFilter({filters,onChange}) {
-    const location = useLocation();
     const history = useHistory();
     const match = useRouteMatch();
      const HandleCategoryChange = (newCategorySlug) => {

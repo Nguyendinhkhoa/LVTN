@@ -39,42 +39,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-RegisterForm.propTypes = {
+Loginform.propTypes = {
   onSubmit: PropTypes.func,
 };
 
-function RegisterForm(props) {
+function Loginform(props) {
   const classes = useStyles();
   const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required('Please enter your full name')
-      .test('should has at least two words', 'please enter ay least two words', (value) => {
-        return value.split(' ').length >= 2;
-      }),
+
     email: yup
       .string()
       .required('Please enter your email')
       .email('Please enter a valid email address '),
     password: yup
       .string()
-      .required('Please enter your password')
-      .min(6, 'Please enter at least 6 character')
-      .test('passwordRequirements', 'Password must include letters and numbers', (value) =>
-        [/[a-z]/, /[0-9]/,].every((pattern) => pattern.test(value))
-      ),
-    retypePassword: yup
-      .string()
-      .required('Please retype your password')
-      .oneOf([yup.ref('password')], 'Password does not match'),
+      .required('Please enter your password'),
   });
 
   const form = useForm({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
-      retypePassword: '',
     },
     resolver: yupResolver(schema),
   });
@@ -98,13 +83,11 @@ function RegisterForm(props) {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h3" variant="h5" className={classes.title}>
-                Create An Account
+                Sign In
               </Typography>
               <form onSubmit={form.handleSubmit(handleSubmit)}>
-                <InputField name="name" label="Full Name" form={form} />
                 <InputField name="email" label="Email" form={form} />
                 <PasswordField name="password" label="Password" form={form} />
-                <PasswordField name="retypePassword" label="Confirm Password" form={form} />
                 <Button
                   disabled={isSubmitting}
                   type="submit"
@@ -113,10 +96,16 @@ function RegisterForm(props) {
                   fullWidth
                   className={classes.submit}
                 >
-                  Create An Account
+                  Sign In
                 </Button>
               </form>
-
+              <Grid container justifyContent="flex-end">
+                <Grid item margin="normal">
+                  {/* <Link to="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link> */}
+                </Grid>
+              </Grid>
             </div>
           </div>
         </div>
@@ -125,4 +114,4 @@ function RegisterForm(props) {
   );
 }
 
-export default RegisterForm;
+export default Loginform;

@@ -11,6 +11,7 @@ import Product from './features/Product';
 import DetailProduct from './features/Product/pages/DetailProduct/DetailProduct';
 import Login from './features/Login/Login';
 import Register from './features/Auth/components/Register';
+import Cart from './features/Cart';
 
 
 
@@ -29,9 +30,10 @@ function App() {
       <Route path='/product-detail/:slug' component={DetailProduct}></Route>
       <Route path='/register' component={Register}></Route>
       <Route path='/login' component={Login}></Route>
+      <Route path='/cart' component={Cart}></Route>
       <Route component={NotFound}></Route>
       </Switch>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }

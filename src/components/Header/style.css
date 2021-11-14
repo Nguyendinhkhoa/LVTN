@@ -52,6 +52,13 @@
   margin: 0 10px;
   cursor: pointer;
 }
+.ltn__header-top-area .ltn__social-media ul li:first-child:hover {
+  color: #0A9A73;
+}
+.ltn__header-top-area .ltn__social-media ul .logout:hover {
+  color: grey;
+}
+
 
 .ltn__header-top-area .row {
   -webkit-box-align: center;
@@ -603,6 +610,7 @@
     font-size: 12px;
     margin: 0 10px;
   }
+
   .ltn__drop-menu > ul > li {
     position: inherit;
   }

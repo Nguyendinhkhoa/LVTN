@@ -1,21 +1,19 @@
 import axios from 'axios';
 const axiosClient = axios.create({
-    baseURL: 'http://localhost:3000/',
+    baseURL: 'http://teamedicine.tk:3000/',
     headers: {
         'Content-type': 'application/json',
+        'Authorization' :'Bearer ' + JSON.parse(localStorage.getItem('access_token')),
     },
 
 });
 // Add a request interceptor
 axiosClient.interceptors.request.use(function (config) {
-    // Do something before request is sent
     return config;
   }, function (error) {
-    // Do something with request error
     return Promise.reject(error);
   });
 
-// Add a response interceptor
 axiosClient.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -23,7 +21,7 @@ axiosClient.interceptors.response.use(function (response) {
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    const {config,status,data} = error.response ;
+    const {config,status,data} = error.response;
     
     if(config.url === 'api/v1/auth/register' && status===400){
       throw new  Error(data.message);

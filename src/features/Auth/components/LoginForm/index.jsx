@@ -101,9 +101,6 @@ function Loginform(props) {
               </form>
               <Grid container justifyContent="flex-end">
                 <Grid item margin="normal">
-                  {/* <Link to="/login" variant="body2">
-                    Already have an account? Sign in
-                  </Link> */}
                 </Grid>
               </Grid>
             </div>

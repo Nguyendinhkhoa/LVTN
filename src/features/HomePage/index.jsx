@@ -6,6 +6,11 @@ import trolley_8 from './images/8-trolley.svg';
 import money_9 from './images/9-money.svg';
 import credit_card_10 from './images/10-credit-card.svg';
 import gift_card_11 from './images/11-gift-card.svg';
+import slide1 from './images/slide1.jpg';
+import slide2 from './images/slide2.jpg';
+import oder9 from './images/oder9.png';
+import author from './images/author.jpg';
+
 function HomePage(props) {
   const [listCate, SetlistCate] = useState([]);
   useEffect(() => {
@@ -55,13 +60,10 @@ function HomePage(props) {
               <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                   <div className="carousel-item active">
-                    <img src="..." className="d-block w-100" alt="..." />
+                    <img src={slide1} className="d-block w-100" alt="..." />
                   </div>
                   <div className="carousel-item">
-                    <img src="..." className="d-block w-100" alt="..." />
-                  </div>
-                  <div className="carousel-item">
-                    <img src="..." className="d-block w-100" alt="..." />
+                    <img src={slide2} className="d-block w-100" alt="..." />
                   </div>
                 </div>
                 <button
@@ -87,7 +89,7 @@ function HomePage(props) {
           </div>
         </div>
       </div>
-      <div className="ltn__feature-area mt-35 mt--65---">
+      <div className="ltn__feature-area mb-35 mt-35 mt--65---">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -103,7 +105,7 @@ function HomePage(props) {
                 </div>
                 <div className="ltn__feature-item ltn__feature-item-8">
                   <div className="ltn__feature-icon">
-                    <img src={money_9}alt="#" />
+                    <img src={money_9} alt="#" />
                   </div>
                   <div className="ltn__feature-info">
                     <h4>15 days returns</h4>
@@ -133,6 +135,74 @@ function HomePage(props) {
           </div>
         </div>
       </div>
+
+
+      <div className="ltn__about-us-area pt-25 pb-120 ">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 align-self-center">
+              <div className="about-us-img-wrap about-img-left">
+                <img src={oder9} alt="About Us Image" />
+              </div>
+            </div>
+            <div className="col-lg-6 align-self-center">
+              <div className="about-us-info-wrap">
+                <div className="section-title-area ltn__section-title-2--- mb-30">
+                  <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color d-none">
+                    About Us
+                  </h6>
+                  <h1 className="section-title1">Your faithful partners Medical Goods</h1>
+                  <p>
+                    Houzez allow you to design unlimited panels and real estate custom forms to
+                    capture leads and keep record of all information
+                  </p>
+                </div>
+                <ul className="ltn__list-item-1 ltn__list-item-1-before--- clearfix">
+                  <li>
+                    <i className="fas fa-check-square" /> Better security for patient privacy and
+                    information.
+                  </li>
+                  <li>
+                    <i className="fas fa-check-square" /> More products at lower prices.
+                  </li>
+                  <li>
+                    <i className="fas fa-check-square" /> connect customers with the power of
+                    eCommerce at all.
+                  </li>
+                </ul>
+                <div className="about-author-info-2 border-top mt-30 pt-20">
+                  <ul>
+                    <li>
+                      <div className="about-author-info-2-brief  d-flex">
+                        <div className="author-img">
+                          <img src={author} alt="#" />
+                        </div>
+                        <div className="author-name-designation">
+                          <h4 className="mb-0">Đình Khoa</h4>
+                          <small>Medical Specialist</small>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="about-author-info-2-contact  d-flex">
+                        <div className="about-contact-icon d-flex align-self-center mr-10">
+                        <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div className="about-author-info-2-contact-info">
+                          <small>Get Support</small>
+                          <h6 className="mb-0">0326737214</h6>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
     </>
   );
 }

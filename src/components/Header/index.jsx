@@ -7,72 +7,92 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
 import Register from '../../features/Auth/components/Register';
-import { Grid, IconButton } from '@mui/material';
-import { Close } from '@material-ui/icons';
+import { Grid } from '@mui/material';
+// import { Close } from '@material-ui/icons';
+import { useHistory } from 'react-router';
 import Login from '../../features/Auth/components/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { logout } from '../../features/Auth/userSlice';
 const useStyles = makeStyles((theme) => ({
-  closeButton : {
+  closeButton: {
     // positon : 'absolute',
-    top : theme.spacing(1),
-    right : theme.spacing(1),
-    color : theme.palette.grey[500],
-    zIndex : 5,
-  }
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    color: theme.palette.grey[500],
+    zIndex: 5,
+  },
 }));
 const MODE = {
-  LOGIN : 'Login',
-  REGISTER : 'Register',
-}
+  LOGIN: 'Login',
+  REGISTER: 'Register',
+};
 function Header(props) {
-
   const [open, setOpen] = useState(false);
-  const [mode,setMode] = useState(MODE.LOGIN);
+  const [mode, setMode] = useState(MODE.LOGIN);
+  const [anchorEl, SetAnchoEl] = useState(null);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const loggedInUser = useSelector((state) => state.user);
+  const isLoggedIn = !!loggedInUser.current.id;
   const handleClose = () => {
     setOpen(false);
+  };
+  const hanldeUserClick = (e) => {
+    SetAnchoEl(e.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    SetAnchoEl(null);
+  };
+  const hanldeLogoutClick = () => {
+    const action = logout();
+    dispatch(action);
+    SetAnchoEl(null);
+  };
+  const handelAccount = () => {
+    history.push('/account');
   };
   const classes = useStyles();
   return (
     <>
-      <Dialog  disableEscapeKeyDown open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        {/* <IconButton className={classes.closeButton}>
-          <Close />
-          
-        </IconButton> */}
+      <Dialog
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogContent>
           {mode === MODE.REGISTER && (
             <>
-               <Register closeDialog={handleClose}/>
-               <Grid container justifyContent="flex-end">
+              <Register closeDialog={handleClose} />
+              <Grid container justifyContent="flex-end">
                 <Grid item margin="normal">
-                  <Button onClick={()=>setMode(MODE.LOGIN)} variant="body2">
+                  <Button onClick={() => setMode(MODE.LOGIN)}>
                     Already have an account? Login here
                   </Button>
                 </Grid>
               </Grid>
-              
             </>
-          )}   
+          )}
           {mode === MODE.LOGIN && (
             <>
-            <Login closeDialog={handleClose}/>
-            <Grid container justifyContent="flex-end">
+              <Login closeDialog={handleClose} />
+              <Grid container justifyContent="flex-end">
                 <Grid item margin="normal">
-                  <Button onClick={()=>setMode(MODE.REGISTER)} variant="body2">
+                  <Button onClick={() => setMode(MODE.REGISTER)}>
                     Already have an account? Register here
                   </Button>
                 </Grid>
               </Grid>
-
             </>
-          )}       
-
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -80,6 +100,25 @@ function Header(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        getContentAnchorEl={null}
+      >
+        <MenuItem onClick={handelAccount}>My account</MenuItem>
+        <MenuItem onClick={hanldeLogoutClick}>Logout</MenuItem>
+      </Menu>
       <header className="ltn__header-area ltn__header-3">
         <div className="ltn__header-top-area border-bottom">
           <div className="container">
@@ -107,12 +146,27 @@ function Header(props) {
                       <li>
                         <div className="ltn__social-media text-end">
                           <ul className="text-end">
-                          <li>
-                            <a onClick={handleClickOpen}>
-                              <i className="far fa-user me-3"></i>
-                              <span>Login</span>
-                            </a>
-                          </li>                          
+                            {!isLoggedIn && (
+                              <>
+                                <li>
+                                  <a onClick={handleClickOpen}>
+                                    <i className="far fa-user me-3"></i>
+                                    <span>Login</span>
+                                  </a>
+                                </li>
+                              </>
+                            )}
+                            {isLoggedIn && (
+                              <>
+                                
+                                <li>
+                                  <a onClick={hanldeUserClick}>
+                                    <i className="far fa-user me-3"></i>
+                                    <span>{loggedInUser.current.name}</span>
+                                  </a>
+                                </li>
+                              </>
+                            )}
                           </ul>
                         </div>
                       </li>
@@ -186,9 +240,7 @@ function Header(props) {
                     </li>
                     <li className="d-none---">
                       <div className="ltn__drop-menu user-menu">
-                        <ul>
-
-                        </ul>
+                        <ul></ul>
                       </div>
                     </li>
                     <li></li>
@@ -240,15 +292,15 @@ function Header(props) {
               </div>
               <div className="col-md-2">
                 <div className="mini-cart-icon mini-cart-icon-2">
-                  <a href="#ltn__utilize-cart-menu" className="ltn__utilize-toggle">
+                  <Link to="/cart" className="ltn__utilize-toggle">
                     <span className="mini-cart-icon">
                       <i className="fas fa-shopping-cart"></i>
                       <sup>0</sup>
                     </span>
                     <h6>
-                      <span className="ltn__secondary-color">Your Cart</span>
+                      <span >Your Cart</span>
                     </h6>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

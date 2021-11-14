@@ -1,0 +1,59 @@
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #fff;
+    clear: both;
+    font-family:  'Josefin Sans', sans-serif;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 15
+px
+;
+}
+.footer-top-area {
+    padding-top: 92px;
+    padding-bottom: 20px;
+    color: #fff;
+}
+.section-bg-2{
+    background-color: #171B2A;
+}
+.footer-widget {
+    margin-bottom: 60px;
+}
+
+.footer-logo {
+    position: relative;
+    top: -10px;
+}
+
+.footer-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+.footer-address ul {
+    margin: 0;
+    padding: 0;
+}
+.footer-address ul li {
+    list-style: none;
+    display: block;
+    margin-top: 8px;
+}
+.footer-address ul li .footer-address-icon {
+    float: left;
+    margin-right: 15px;
+}
+.footer-widget .footer-title {
+    font-size: 22px;
+}
+.footer-menu ul li {
+    list-style: none;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.footer-menu ul li i{
+    margin-right: 10px;
+}
+.ltn__footer-area{
+    margin-top: 30px;
+}

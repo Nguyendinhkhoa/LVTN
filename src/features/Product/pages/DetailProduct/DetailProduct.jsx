@@ -5,11 +5,23 @@ import { withRouter } from 'react-router';
 import '../../style.css';
 import productApi from '../../../../api/productApi';
 import { TextField } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
+import cartApi from '../../../../api/cartApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { addtocart } from '../../productSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 DetailProduct.propTypes = {};
 function DetailProduct(props) {
   const [slug, SetSlug] = useState(props.match.params.slug);
   const [product, SetProduct] = useState({});
-  const [disabled,setDisabled] = useState(false);
+  const loggedInUser = useSelector(state=>state.user);
+  const isLoggedIn = !!loggedInUser.current.id;
+  const [disabled, setDisabled] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const [data, setData] = useState({
+    productId: '',
+    quantity: 0,
+  });
   useEffect(() => {
     try {
       const fecthProduct = async () => {
@@ -19,7 +31,7 @@ function DetailProduct(props) {
         const product = await productApi.get(params);
         console.log(product);
         SetProduct(product);
-        if(product.inventoryQty===0){
+        if (product.inventoryQty === 0) {
           setDisabled(true);
         }
       };
@@ -28,7 +40,45 @@ function DetailProduct(props) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
   }, []);
+
+  const dispatch = useDispatch();
+  const handleSubmit = async () => {
+    if(!isLoggedIn){
+      enqueueSnackbar(`Please Login before purchasing`, {
+        variant: 'error',
+      });
+      return ;
+    }
+    else{
+      const values = {
+        productId: '6182be0cefe0c84868c73cd3',
+        quantity: 2,
+      };
+      try {
+        const action = addtocart(values);
+        const resuftAction = await dispatch(action);
+        unwrapResult(resuftAction);
+        enqueueSnackbar(`Add to cart successfully!`, {
+          variant: 'success',
+        });
+      } catch (error) {
+        console.log('fail', error.message);
+      }
+    }
+  };
+
   const price = '' + product.price;
+  const onEnter = (event) => {
+    if (event.target.value > product.inventoryQty || event.target.value < 1) {
+      enqueueSnackbar(`Please enter quantity between 1 to ${product.inventoryQty}`, {
+        variant: 'error',
+      });
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  };
+
   return (
     <>
       <SlideInProduct page="Product Detail" />
@@ -54,9 +104,9 @@ function DetailProduct(props) {
                       </div>
                       <div className="modal-product-meta ltn__product-details-menu-1">
                         <ul>
-                        <li>
-                          <strong>Introduce:</strong>
-                          <span>{product.content}</span>
+                          <li>
+                            {/* <strong>Introduce:</strong> */}
+                            <span>{product.content}</span>
                           </li>
                           <li>
                             <strong>Categories:</strong>
@@ -66,33 +116,34 @@ function DetailProduct(props) {
                             </span>
                           </li>
                           <li>
-                          <strong>MFG:</strong>
-                          <span>{product.productionDate}</span>
+                            <strong>MFG:</strong>
+                            <span>{product.productionDate}</span>
                           </li>
                           <li>
-                          <strong>EXP:</strong>
-                          <span>{product.expiryDate}</span>
+                            <strong>EXP:</strong>
+                            <span>{product.expiryDate}</span>
                           </li>
                         </ul>
                       </div>
                       <div className="ltn__product-details-menu-2">
                         <ul>
                           <li>
-                          <div className="cart-plus-minus">
-                            <TextField
-                              id="outlined-number"
-                              type="number"
+                            <div className="cart-plus-minus">
+                              <TextField
                               defaultValue="1"
-                              InputProps={{ inputProps: { min: 1, max: product.inventoryQty } }}
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              variant="outlined"
-                            />
-                          </div>
+                                onChange={onEnter}
+                                type="number"
+                                InputProps={{ inputProps: { min: 1, max: product.inventoryQty } }}
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                                variant="outlined"
+                              />
+                            </div>
                           </li>
                           <li>
                             <button
+                              onClick={handleSubmit}
                               className="theme-btn-1 btn btn-effect-1"
                               title="Add to Cart"
                               disabled={disabled}
@@ -130,10 +181,6 @@ function DetailProduct(props) {
                         </ul>
                       </div>
                       <hr />
-                      <div className="ltn__safe-checkout">
-                        <h5>Guaranteed Safe Checkout</h5>
-                        <img src="img/icons/payment-2.png" alt="Payment Image" />
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -152,33 +199,15 @@ function DetailProduct(props) {
                 </div>
                 <div className="tab-content">
                   <div className="tab-pane fade active show" id="liton_tab_details_1_1">
-                    <div className="ltn__shop-details-tab-content-inner">
-                      <h4 className="title-2">Lorem ipsum dolor sit amet elit.</h4>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident.
-                      </p>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                        beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-                        sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-                        qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-                        ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
-                        eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                        voluptatem.
-                      </p>
-                    </div>
+                    {/* <div  > */}
+
+                      <div className="ltn__shop-details-tab-content-inner">
+                        {product.description}
+                      </div>
+
+                        
+                      
+                    {/* </div> */}
                   </div>
                   <div className="tab-pane fade" id="liton_tab_details_1_2">
                     <div className="ltn__shop-details-tab-content-inner">

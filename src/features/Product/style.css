@@ -2,7 +2,12 @@
 /* --------------------------------------------------------------
     Widgets
 -------------------------------------------------------------- */
-
+.ltn__product-area{
+    margin-top: 120px;
+}
+.ltn__shop-details-area{
+    margin-top: 120px;
+}
 .widget {
     margin-bottom: 40px;
     padding: 35px 30px 40px 35px;
@@ -110,9 +115,8 @@
 }
 .ltn__breadcrumb-area {
     background-color: F2F6F7;
-    margin-bottom: 120px;
     padding-top: 110px;
-    padding-bottom: 110px;
+    padding-bottom: 20px;
 }
 .bg-overlay-white-30{
     z-index: 8;
@@ -390,13 +394,15 @@ element.style {
     color: #071c1f;
     margin-right: 5px;
     font-weight: 600;
-    min-width: 100px
-;
+    /* min-width: 100px */
+
     display: inline-block;
 }
 .ltn__product-details-menu-1 ul li span {
     font-weight: 600;
 }
+
+
 .ltn__product-details-menu-1 ul li a {
     position: relative;
     margin-right: 10px;
@@ -478,3 +484,57 @@ input.cart-plus-minus-box {
     color: #fff;
 }
 
+.ltn__social-media ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 15px 0 0;
+}
+.ltn__shop-details-tab-menu {
+    border-bottom: 2px solid #e5eaee;
+}
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+ .ltn__shop-details-tab-menu .nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.ltn__shop-details-tab-menu .nav a {
+    background-color: #071C1F;
+    color: #fff;
+    padding: 20px 20px;
+    font-size: 16px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    text-align: center;
+    font-weight: 700;
+}
+ .ltn__shop-details-tab-menu .nav a {
+    background-color: transparent;
+    color: #5C727D;
+    padding: 20px 0px;
+    margin-right: 50px;
+    -webkit-box-flex: inherit;
+    -ms-flex: inherit;
+    flex: inherit;
+    text-align: left;
+    position: relative;
+}
+.ltn__shop-details-tab-menu .nav a.active {
+    color: #0A9A73;
+    background-color: transparent;
+}
+
+
+.ltn__shop-details-tab-menu .nav a.active::before {
+    background-color: #0A9A73;
+    width: 100%;
+}

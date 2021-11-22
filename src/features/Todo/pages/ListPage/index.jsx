@@ -28,7 +28,6 @@ function ListPage(props) {
 
     const history = useHistory();
     const match = useRouteMatch();
-    const params = queryString.parse(location.search);
     useEffect(()=>{
         const params = queryString.parse(location.search);
         SetFilterStatus(params.status || 'all');
@@ -37,7 +36,7 @@ function ListPage(props) {
     const [todoList,SetTodoList ] = useState(initTodoList);
     const [filterStatus,SetFilterStatus] = useState(()=>{
         const params = queryString.parse(location.search);
-        //  console.log(params.status);
+
         return params.status || 'all';
     });
     const handleTodoClick = (todo , idx) =>{
@@ -72,7 +71,6 @@ function ListPage(props) {
     }
 
     const renderTodoList = todoList.filter(todo =>filterStatus==='all' || filterStatus === todo.status);
-    // console.log(renderTodoList);
     const counter = useSelector(state => state.counter);
     const handleTodoFormSubmit = (values) =>{
         console.log('hihi');

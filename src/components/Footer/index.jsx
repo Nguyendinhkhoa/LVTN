@@ -24,7 +24,7 @@ function Footer(props) {
                     <ul>
                       <li>
                         <div className="footer-address-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i className="fas fa-map-marker-alt"></i>
                         </div>
                         <div className="footer-address-info">
                           <p>Brooklyn, New York, United States</p>
@@ -32,7 +32,7 @@ function Footer(props) {
                       </li>
                       <li>
                         <div className="footer-address-icon">
-                        <i class="fas fa-phone-volume"></i>
+                        <i className="fas fa-phone-volume"></i>
                         </div>
                         <div className="footer-address-info">
                           <p>
@@ -42,7 +42,7 @@ function Footer(props) {
                       </li>
                       <li>
                         <div className="footer-address-icon">
-                        <i class="far fa-envelope"></i>
+                        <i className="far fa-envelope"></i>
                         </div>
                         <div className="footer-address-info">
                           <p>
@@ -81,19 +81,19 @@ function Footer(props) {
                   <div className="footer-menu">
                     <ul>
                       <li>
-                        <i class="fab fa-facebook-square"></i>
+                        <i className="fab fa-facebook-square"></i>
                         <a href="https://www.facebook.com/">Facebook</a>
                       </li>
                       <li>
-                        <i class="fab fa-youtube"></i>
+                        <i className="fab fa-youtube"></i>
                         <a href="https://www.youtube.com/">Youtube</a>
                       </li>
                       <li>
-                        <i class="fab fa-instagram"></i>
+                        <i className="fab fa-instagram"></i>
                         <a href="instagram.com">Instagram</a>
                       </li>
                       <li>
-                        <i class="fab fa-whatsapp-square"></i>
+                        <i className="fab fa-whatsapp-square"></i>
                         <a href="https://web.whatsapp.com/">What app</a>
                       </li>
                     </ul>

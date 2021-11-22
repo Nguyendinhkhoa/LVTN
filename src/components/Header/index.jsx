@@ -1,32 +1,19 @@
 import React, { useState } from 'react';
 import './style.css';
 import { Link, NavLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
 import Register from '../../features/Auth/components/Register';
 import { Grid } from '@mui/material';
-// import { Close } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import Login from '../../features/Auth/components/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { logout } from '../../features/Auth/userSlice';
-const useStyles = makeStyles((theme) => ({
-  closeButton: {
-    // positon : 'absolute',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
-    color: theme.palette.grey[500],
-    zIndex: 5,
-  },
-}));
+
 const MODE = {
   LOGIN: 'Login',
   REGISTER: 'Register',
@@ -59,7 +46,6 @@ function Header(props) {
   const handelAccount = () => {
     history.push('/account');
   };
-  const classes = useStyles();
   return (
     <>
       <Dialog
@@ -119,6 +105,7 @@ function Header(props) {
         <MenuItem onClick={handelAccount}>My account</MenuItem>
         <MenuItem onClick={hanldeLogoutClick}>Logout</MenuItem>
       </Menu>
+      
       <header className="ltn__header-area ltn__header-3">
         <div className="ltn__header-top-area border-bottom">
           <div className="container">
@@ -149,10 +136,10 @@ function Header(props) {
                             {!isLoggedIn && (
                               <>
                                 <li>
-                                  <a onClick={handleClickOpen}>
+                                  <span onClick={handleClickOpen}>
                                     <i className="far fa-user me-3"></i>
                                     <span>Login</span>
-                                  </a>
+                                  </span>
                                 </li>
                               </>
                             )}
@@ -160,10 +147,10 @@ function Header(props) {
                               <>
                                 
                                 <li>
-                                  <a onClick={hanldeUserClick}>
+                                  <span onClick={hanldeUserClick}>
                                     <i className="far fa-user me-3"></i>
                                     <span>{loggedInUser.current.name}</span>
-                                  </a>
+                                  </span>
                                 </li>
                               </>
                             )}

@@ -13,6 +13,12 @@
     padding: 35px 30px 40px 35px;
     border: 2px solid #ededed;
 }
+.widget1 {
+    margin-bottom: 40px;
+    padding: 35px 30px 40px 35px;
+    border: 2px solid #ededed;
+    /* height: 535px; */
+}
 
 .widget:last-child {
     margin-bottom: 30px;
@@ -296,7 +302,7 @@ element.style {
 }
 .product-price del {
     opacity: 0.6;
-    margin-left: 5px;
+    margin-left: 15px;
     font-size: 80%;
 }
 .ltn__product-item-3 .product-price {

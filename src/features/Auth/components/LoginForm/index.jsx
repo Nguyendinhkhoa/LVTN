@@ -7,19 +7,13 @@ import * as yup from 'yup';
 import {
   Avatar,
   Typography,
-  TextField,
   Button,
   LinearProgress,
-  Box,
   Grid,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
 import { makeStyles } from '@material-ui/core/styles';
-import { auto } from '@popperjs/core';
 import PasswordField from '../../../../components/form-control/PasswordField';
-import { Link } from 'react-router-dom';
-import { Copyright } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -69,7 +63,6 @@ function Loginform(props) {
     if (onSubmit) {
       await onSubmit(values);
     }
-    // form.reset();
   };
   const { isSubmitting } = form.formState;
   return (

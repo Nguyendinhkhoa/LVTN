@@ -8460,15 +8460,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     transition: all 0.3s ease 0s;
 }
 
-.ltn__product-item:hover .product-img:before {
-    opacity: 0.4;
-    visibility: visible;
-}
 
-.ltn__product-item:hover .product-img::before {
-    opacity: 0.4;
-    visibility: visible;
-}
 
 .product-title {
     font-size: 16px;

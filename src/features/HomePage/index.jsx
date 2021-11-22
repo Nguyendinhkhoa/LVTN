@@ -10,6 +10,10 @@ import slide1 from './images/slide1.jpg';
 import slide2 from './images/slide2.jpg';
 import oder9 from './images/oder9.png';
 import author from './images/author.jpg';
+import banner1 from './images/banner1.jpg';
+import banner2 from './images/banner2.jpg';
+import banner3 from './images/banner3.jpg';
+import LatestProduct from './components/LatestProduct';
 
 function HomePage(props) {
   const [listCate, SetlistCate] = useState([]);
@@ -136,13 +140,12 @@ function HomePage(props) {
         </div>
       </div>
 
-
       <div className="ltn__about-us-area pt-25 pb-120 ">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 align-self-center">
               <div className="about-us-img-wrap about-img-left">
-                <img src={oder9} alt="About Us Image" />
+                <img src={oder9} alt="" />
               </div>
             </div>
             <div className="col-lg-6 align-self-center">
@@ -186,7 +189,7 @@ function HomePage(props) {
                     <li>
                       <div className="about-author-info-2-contact  d-flex">
                         <div className="about-contact-icon d-flex align-self-center mr-10">
-                        <i class="fas fa-phone-alt"></i>
+                          <i className="fas fa-phone-alt"></i>
                         </div>
                         <div className="about-author-info-2-contact-info">
                           <small>Get Support</small>
@@ -201,8 +204,40 @@ function HomePage(props) {
           </div>
         </div>
       </div>
-
-      
+      <div className="ltn__banner-area mt-120---">
+        <div className="container">
+          <div className="row ltn__custom-gutter--- justify-content-center">
+            <div className="col-lg-4 col-sm-6">
+              <div className="ltn__banner-item">
+                <div className="ltn__banner-img">
+                  <Link to="/products">
+                    <img src={banner1} alt="Banner Image" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="ltn__banner-item">
+                <div className="ltn__banner-img">
+                  <Link to="/products">
+                    <img src={banner2} alt="Banner Image" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 col-sm-6">
+              <div className="ltn__banner-item">
+                <div className="ltn__banner-img">
+                  <Link to="/products">
+                    <img src={banner3} alt="Banner Image" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <LatestProduct />
     </>
   );
 }

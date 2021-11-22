@@ -3,16 +3,26 @@ const axiosClient = axios.create({
     baseURL: 'http://teamedicine.tk:3000/',
     headers: {
         'Content-type': 'application/json',
-        'Authorization' :'Bearer ' + JSON.parse(localStorage.getItem('access_token')),
     },
 
 });
-// Add a request interceptor
-axiosClient.interceptors.request.use(function (config) {
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+function getLocalAccessToken() {
+  const accessToken = 'Bearer ' + JSON.parse(localStorage.getItem('access_token'));
+  return accessToken;
+}
+
+  axiosClient.interceptors.request.use(
+    (config) => {
+      const token = getLocalAccessToken();
+      if (token) {
+        config.headers["Authorization"] = token ;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
 axiosClient.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger

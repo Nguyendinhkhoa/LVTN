@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterByCategory from './Filters/FilterByCategory';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useHistory,  useRouteMatch } from 'react-router';
 import queryString from 'query-string';
 ProductFilter.propTypes = {
     filters : PropTypes.object.isRequired,
@@ -26,9 +26,9 @@ function ProductFilter({filters,onChange}) {
         onChange(newFilters);
     }   
     return (
-        <div>
+        <>
             <FilterByCategory onChange={HandleCategoryChange}/>
-        </div>
+        </>
     );
 }
 

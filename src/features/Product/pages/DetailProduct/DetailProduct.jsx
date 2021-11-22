@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import SlideInProduct from '../../components/Slide';
 import { withRouter } from 'react-router';
 import '../../style.css';
 import productApi from '../../../../api/productApi';
 import { TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
-import cartApi from '../../../../api/cartApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { addtocart } from '../../productSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
-DetailProduct.propTypes = {};
+import Loading from '../../components/LoadingAdd';
+import { Link } from 'react-router-dom';
+
 function DetailProduct(props) {
   const [slug, SetSlug] = useState(props.match.params.slug);
   const [product, SetProduct] = useState({});
-  const loggedInUser = useSelector(state=>state.user);
+  const loggedInUser = useSelector((state) => state.user);
   const isLoggedIn = !!loggedInUser.current.id;
   const [disabled, setDisabled] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
-  const [data, setData] = useState({
-    productId: '',
-    quantity: 0,
-  });
+  const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     try {
       const fecthProduct = async () => {
@@ -43,21 +42,23 @@ function DetailProduct(props) {
 
   const dispatch = useDispatch();
   const handleSubmit = async () => {
-    if(!isLoggedIn){
+    if (!isLoggedIn) {
       enqueueSnackbar(`Please Login before purchasing`, {
         variant: 'error',
       });
-      return ;
-    }
-    else{
+      return;
+    } else {
       const values = {
-        productId: '6182be0cefe0c84868c73cd3',
-        quantity: 2,
+        productId: product.id,
+        quantity: quantity,
       };
       try {
+        setLoading(true);
+        console.log(localStorage.getItem('access_token'));
         const action = addtocart(values);
         const resuftAction = await dispatch(action);
         unwrapResult(resuftAction);
+        setLoading(false);
         enqueueSnackbar(`Add to cart successfully!`, {
           variant: 'success',
         });
@@ -75,12 +76,13 @@ function DetailProduct(props) {
       });
       setDisabled(true);
     } else {
+      setQuantity(event.target.value);
       setDisabled(false);
     }
   };
-
   return (
     <>
+      {loading && <Loading />}
       <SlideInProduct page="Product Detail" />
       <div className="ltn__shop-details-area pb-85">
         <div className="container">
@@ -91,7 +93,7 @@ function DetailProduct(props) {
                   <div className="col-md-6 col-lg-5">
                     <div className="ltn__shop-details-img-gallery">
                       <div className="ltn__shop-details-large-img slick-initialized slick-slider ltn__product-item-3">
-                        <img src={product.image} />
+                        <img src={product.image} alt=""/>
                       </div>
                     </div>
                   </div>
@@ -100,19 +102,19 @@ function DetailProduct(props) {
                       <h3 className="animated fadeIn">{product.name}</h3>
                       <div className="product-price">
                         <span>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</span>
-                        <del>$162.000 ₫</del>
+                        <del>162,000 ₫</del>
                       </div>
                       <div className="modal-product-meta ltn__product-details-menu-1">
                         <ul>
                           <li>
-                            {/* <strong>Introduce:</strong> */}
                             <span>{product.content}</span>
                           </li>
                           <li>
                             <strong>Categories:</strong>
                             <span>
+                              
                               {product.category &&
-                                product.category.map((cate, idx) => <a key={idx}>{cate}</a>)}
+                                product.category.map((cate, idx) => <Link to={`/products?category=`+cate} key={idx}>{cate}</Link>)}
                             </span>
                           </li>
                           <li>
@@ -123,6 +125,10 @@ function DetailProduct(props) {
                             <strong>EXP:</strong>
                             <span>{product.expiryDate}</span>
                           </li>
+                          <li>
+                            <strong>Unit:</strong>
+                            <span>{product.unit}</span>
+                          </li>
                         </ul>
                       </div>
                       <div className="ltn__product-details-menu-2">
@@ -130,7 +136,7 @@ function DetailProduct(props) {
                           <li>
                             <div className="cart-plus-minus">
                               <TextField
-                              defaultValue="1"
+                                defaultValue="1"
                                 onChange={onEnter}
                                 type="number"
                                 InputProps={{ inputProps: { min: 1, max: product.inventoryQty } }}
@@ -159,22 +165,22 @@ function DetailProduct(props) {
                         <ul>
                           <li>Share:</li>
                           <li>
-                            <a href="#" title="Facebook">
+                            <a href="https://www.facebook.com/" title="Facebook">
                               <i className="fab fa-facebook-f" />
                             </a>
                           </li>
                           <li>
-                            <a href="#" title="Twitter">
+                            <a href="https://twitter.com/" title="Twitter">
                               <i className="fab fa-twitter" />
                             </a>
                           </li>
                           <li>
-                            <a href="#" title="Linkedin">
+                            <a href="https://www.linkedin.com/" title="Linkedin">
                               <i className="fab fa-linkedin" />
                             </a>
                           </li>
                           <li>
-                            <a href="#" title="Instagram">
+                            <a href="https://www.instagram.com/" title="Instagram">
                               <i className="fab fa-instagram" />
                             </a>
                           </li>
@@ -201,12 +207,8 @@ function DetailProduct(props) {
                   <div className="tab-pane fade active show" id="liton_tab_details_1_1">
                     {/* <div  > */}
 
-                      <div className="ltn__shop-details-tab-content-inner">
-                        {product.description}
-                      </div>
+                    <div className="ltn__shop-details-tab-content-inner">{product.description}</div>
 
-                        
-                      
                     {/* </div> */}
                   </div>
                   <div className="tab-pane fade" id="liton_tab_details_1_2">
@@ -215,33 +217,22 @@ function DetailProduct(props) {
                       <div className="product-ratting">
                         <ul>
                           <li>
-                            <a href="#">
                               <i className="fas fa-star" />
-                            </a>
                           </li>
                           <li>
-                            <a href="#">
                               <i className="fas fa-star" />
-                            </a>
                           </li>
                           <li>
-                            <a href="#">
                               <i className="fas fa-star" />
-                            </a>
                           </li>
                           <li>
-                            <a href="#">
                               <i className="fas fa-star-half-alt" />
-                            </a>
                           </li>
                           <li>
-                            <a href="#">
                               <i className="far fa-star" />
-                            </a>
                           </li>
                           <li className="review-total">
-                            {' '}
-                            <a href="#"> ( 95 Reviews )</a>
+                            <span> ( 95 Reviews )</span>
                           </li>
                         </ul>
                       </div>
@@ -257,34 +248,35 @@ function DetailProduct(props) {
                                 </div>
                                 <div className="ltn__commenter-comment">
                                   <h6>
-                                    <a href="#">Adam Smit</a>
+                                    
+                                    <span>Adam Smit</span>
                                   </h6>
                                   <div className="product-ratting">
                                     <ul>
                                       <li>
-                                        <a href="#">
+                                        <span>
                                           <i className="fas fa-star" />
-                                        </a>
+                                        </span>
                                       </li>
                                       <li>
-                                        <a href="#">
+                                        <span>
                                           <i className="fas fa-star" />
-                                        </a>
+                                        </span>
                                       </li>
                                       <li>
-                                        <a href="#">
+                                        <span>
                                           <i className="fas fa-star" />
-                                        </a>
+                                        </span>
                                       </li>
                                       <li>
-                                        <a href="#">
+                                        <span>
                                           <i className="fas fa-star-half-alt" />
-                                        </a>
+                                        </span>
                                       </li>
                                       <li>
-                                        <a href="#">
+                                        <span>
                                           <i className="far fa-star" />
-                                        </a>
+                                        </span>
                                       </li>
                                     </ul>
                                   </div>
@@ -430,7 +422,7 @@ function DetailProduct(props) {
                             </div>
                           </div>
                           <div className="input-item input-item-textarea ltn__custom-icon">
-                            <textarea placeholder="Type your comments...." defaultValue={''} />
+                            <textarea placeholder="Type your comments...."  />
                           </div>
                           <div className="input-item input-item-name ltn__custom-icon">
                             <input type="text" placeholder="Type your name...." />

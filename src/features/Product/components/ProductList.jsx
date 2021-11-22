@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid } from '@material-ui/core';
 
 import Product from './Product';
 
@@ -12,12 +11,11 @@ ProductList.defaultProps = {
 }
 function ProductList({data}) {
     return (
-
         <>
                 {data.map((product,index)=>(
                         <Product key={product.id} product={product}/>
-                ))}
-
+                ))
+                }
         </>
     );
 }

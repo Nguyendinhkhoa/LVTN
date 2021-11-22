@@ -21,23 +21,17 @@ function FilterByCategory({onChange}) {
     const handleCategoryClick = (category) =>{
         if (onChange) {
             onChange(category);
-            // window.scrollTo(600,600);
         }
     }
     return (
         <>
-            <div className="widget ltn__menu-widget">
-            <h4 className="ltn__widget-title ltn__widget-title-border">Product categories</h4>
-            <li onClick={()=>handleCategoryClick()}><Link to="/products"><span>All Category</span></Link></li>
             <ul>
-
             { categoryList && categoryList.length >0 && categoryList.map((cate,ind)=>{
                 return(
               <li onClick={()=>handleCategoryClick(cate.slug)} key={cate.id}><Link to={cate.slug}>{cate.name}<span><i className="fas fa-long-arrow-alt-right" /></span></Link></li>
               )
             }) }
               </ul>
-          </div>
         </>
     );
 }

@@ -1,10 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+
 import SlideInProduct from '../Product/components/Slide';
 import './stye.css';
-Cart.propTypes = {};
+import cartApi from '../../api/cartApi';
 
 function Cart(props) {
+  const [Cart, setCart] = useState([]);
+  const [params,setParams]= useState({});
+  useEffect(() => {
+    try {
+      const fecthCart = async () => {
+        const cart = await cartApi.getCart();
+        console.log(cart);
+        setCart(cart.results);
+      };
+      fecthCart();
+    } catch (error) {
+      console.log('FAILDED TO FETCH PRODUCT LIST', error);
+    }
+  }, []);
+  const handleDeleteItem = (item)=>{
+    console.log(item);
+  }
   return (
     <>
       <SlideInProduct page="cart" />
@@ -38,39 +55,67 @@ function Cart(props) {
           </div>
         </div>
       </div>
+      <section id="cart-title">
+        <div className="container">
+          <h2>Shopping Cart</h2>
+          <hr />
+        </div>
+      </section>
+
       <div className="liton__shoping-cart-area mb-120">
         <div className="container">
           <div className="row bg-w">
             <div className="col-lg-12">
               <div className="shoping-cart-inner">
-                <div className="shoping-cart-table table-responsive">
-                  <table className="table">
-                    <tbody>
-                      <tr>
-                        <td className="cart-product-remove">x</td>
-                        <td className="cart-product-image">
-                          <a href="product-details.html">
-                            <img src="img/product/1.png" alt="#" />
-                          </a>
-                        </td>
-                        <td className="cart-product-info">
-                          <h4>
-                            <a href="product-details.html">Digital Stethoscope</a>
-                          </h4>
-                        </td>
-                        <td className="cart-product-price">$149.00</td>
-                        <td className="cart-product-quantity">
-                          <div className="cart-plus-minus">
-                            <div className="dec qtybutton">-</div>
-                            <input type="number" name="qtybutton" className="cart-plus-minus-box" />
-                            <div className="inc qtybutton">+</div>
-                          </div>
-                        </td>
-                        <td className="cart-product-subtotal">$298.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <section className="shopping-cart spad">
+                  <div className="cart-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th className="duongke">Image</th>
+                          <th className="p-name duongke">Product Name</th>
+                          <th className="duongke">Price</th>
+                          <th className="duongke">Quantity</th>
+                          <th className="duongke">Total</th>
+                          <th> Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Cart.map((item, index) => {
+                          return (
+                            <tr className="item-cart" key={item.id}>
+                              <td className="cart-pic first-row duongke">
+                                <img src={item.image} alt="" />
+                              </td>
+                              <td
+                                className="cart-title first-row duongke"
+                                style={{ fontFamily: 'inherit', fontWeight: 500 }}
+                              >{item.productName}</td>
+                              <td className="product-price d-none"></td>
+                              <td className="p-price first-row duongke">{item.price}₫</td>
+                              <td className="qua-col first-row duongke">
+                                <div className="quantity-cart">
+                                  <input
+                                    id="test-input"
+                                    className="form-control"
+                                    type="number"
+                                    min={1}
+                                    defaultValue={item.quantity}
+                                  />
+                                </div>
+                              </td>
+                              <td className="total-price first-row duongke">{item.priceTotal}₫</td>
+                              <td className="close-td first-row">
+                                <i className="fas fa-trash" onClick={()=>handleDeleteItem(item)}></i>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+
                 <div className="shoping-cart-total mt-50">
                   <h4>Cart Totals</h4>
                   <table className="table">

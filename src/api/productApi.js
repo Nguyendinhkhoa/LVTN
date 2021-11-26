@@ -10,6 +10,10 @@ const productApi = {
         const url = `api/v1/products/get-product`;
         return axiosClient.get(url,{params});
     },
+    search(params){
+        const url = `api/v1/products/search-product`;
+        return axiosClient.get(url,{params});
+    },
 
     add(data){
         const url = `/products/`;

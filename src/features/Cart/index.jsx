@@ -1,27 +1,68 @@
 import React, { useState, useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
 import SlideInProduct from '../Product/components/Slide';
 import './stye.css';
 import cartApi from '../../api/cartApi';
+import Loading from '../Loading';
+import Lottie from 'lottie-web';
+import { useDispatch } from 'react-redux';
+import { dlt } from '../Auth/userSlice';
 
 function Cart(props) {
+  const dispatch = useDispatch();
   const [Cart, setCart] = useState([]);
-  const [params,setParams]= useState({});
+  const [loading, setLoading] = useState(1);
+  const [params, setParams] = useState({});
+  const [listUpdate, setListUpdate] = useState([]);
+  const user = useSelector((state) => state.user.current);
+  console.log(typeof user);
   useEffect(() => {
-    try {
-      const fecthCart = async () => {
-        const cart = await cartApi.getCart();
-        console.log(cart);
-        setCart(cart.results);
-      };
-      fecthCart();
-    } catch (error) {
-      console.log('FAILDED TO FETCH PRODUCT LIST', error);
+    setLoading(1);
+    if (Object.keys(user).length === 0) {
+      setCart([]);
+      setTimeout(() => {
+        setLoading(0);
+      }, 1000);
+    } else {
+      try {
+        const fecthCart = async () => {
+          const cart = await cartApi.getCart();
+          console.log(cart);
+          setCart(cart.results);
+        };
+        fecthCart();
+        setTimeout(() => {
+          setLoading(0);
+        }, 1000);
+      } catch (error) {
+        console.log('FAILDED TO FETCH PRODUCT LIST', error);
+      }
     }
-  }, []);
-  const handleDeleteItem = (item)=>{
-    console.log(item);
-  }
+  }, [user]);
+
+
+  const handleDeleteItem = async (item) => {
+    const res = await cartApi.deleteCart(item.id)
+    if (typeof(res) === 'string') {
+      setCart([...Cart.filter(el => el.id !== item.id)])
+    }
+    dispatch(dlt(1));
+  };
+
+  const hanldeChangeQuantity = (item, event) => {
+
+    setListUpdate([
+      ...listUpdate.filter(el => el.productId !== item.productId),
+      {
+        id : item.id,
+        productId: item.productId,
+        quantity: event.target.value
+      }
+    ])
+  };
+
+  if (loading === 1) return <Loading />;
+
   return (
     <>
       <SlideInProduct page="cart" />
@@ -68,9 +109,10 @@ function Cart(props) {
             <div className="col-lg-12">
               <div className="shoping-cart-inner">
                 <section className="shopping-cart spad">
+                  { listUpdate.length }
                   <div className="cart-table">
                     <table>
-                      <thead>
+                      <thead className="thead-table">
                         <tr>
                           <th className="duongke">Image</th>
                           <th className="p-name duongke">Product Name</th>
@@ -81,6 +123,7 @@ function Cart(props) {
                         </tr>
                       </thead>
                       <tbody>
+                        { !Cart.length && <div>No Product In Cart</div>}
                         {Cart.map((item, index) => {
                           return (
                             <tr className="item-cart" key={item.id}>
@@ -90,9 +133,13 @@ function Cart(props) {
                               <td
                                 className="cart-title first-row duongke"
                                 style={{ fontFamily: 'inherit', fontWeight: 500 }}
-                              >{item.productName}</td>
+                              >
+                                {item.productName}
+                              </td>
                               <td className="product-price d-none"></td>
-                              <td className="p-price first-row duongke">{item.price}₫</td>
+                              <td className="p-price first-row duongke">
+                                {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫
+                              </td>
                               <td className="qua-col first-row duongke">
                                 <div className="quantity-cart">
                                   <input
@@ -100,13 +147,19 @@ function Cart(props) {
                                     className="form-control"
                                     type="number"
                                     min={1}
+                                    onChange={(e) => hanldeChangeQuantity(item, e)}
                                     defaultValue={item.quantity}
                                   />
                                 </div>
                               </td>
-                              <td className="total-price first-row duongke">{item.priceTotal}₫</td>
+                              <td className="total-price first-row duongke">
+                                {item.priceTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫
+                              </td>
                               <td className="close-td first-row">
-                                <i className="fas fa-trash" onClick={()=>handleDeleteItem(item)}></i>
+                                <i
+                                  className="fas fa-trash"
+                                  onClick={() => handleDeleteItem(item)}
+                                ></i>
                               </td>
                             </tr>
                           );

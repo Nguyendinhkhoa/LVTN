@@ -93,6 +93,7 @@ h4 {
   Shopping Cart
 -----------------------*/
 
+
 .shopping-cart {
     padding-top: 80px;
     padding-bottom: 60px;
@@ -126,13 +127,15 @@ h4 {
 
 .cart-table table tr td {
     text-align: center;
-    padding-bottom: 34px;
+    padding-bottom: 10px;
 }
 
 .cart-table table tr td.first-row {
-    padding-top: 30px;
+    padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    width: 15%;
+
 }
 
 .duongke {
@@ -142,6 +145,7 @@ h4 {
 
 .cart-table table tr td.cart-title {
     text-align: left;
+    width: 35%;
 }
 
 .cart-table table tr td.cart-title h5 {
@@ -160,7 +164,7 @@ h4 {
 }
 
 .cart-table table tr td.qua-col {
-    width: 15%;
+    width: 10%;
 }
 
 .cart-table table tr td.qua-col .quantity {

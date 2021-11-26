@@ -20,7 +20,7 @@ function SlideInProduct({page}) {
           <div className="row">
             <div className="col-lg-12">
               <div className="ltn__breadcrumb-inner">
-                <h1 className="page-title">Shop Left Sidebar</h1>
+                <h1 className="page-title">{page}</h1>
                 <div className="ltn__breadcrumb-list">
                   <ul>
                     <li>

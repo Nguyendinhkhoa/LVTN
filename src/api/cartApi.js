@@ -11,6 +11,11 @@ const cartApi = {
         return axiosClient.get(url);
     },
 
+    deleteCart(data) {
+        const url = 'api/v1/carts/delete-cart' + '?CartId=' + data
+        return axiosClient.delete(url)
+    }
+
 };
 
 export default cartApi;

@@ -9,6 +9,14 @@ const userApi = {
         const url = 'api/v1/auth/login';
         return axiosClient.post(url,data);   
     },
+    info(){
+        const url ="api/v1/users/me";
+        return axiosClient.get(url);
+    },
+    update(data){
+        const url="/api/v1/users/update-infomation"
+        return axiosClient.put(url,data);
+    },
 
 
 };

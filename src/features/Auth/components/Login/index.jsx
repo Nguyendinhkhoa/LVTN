@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from '../LoginForm';
 import {useDispatch} from 'react-redux';
-import { login } from '../../userSlice';
+import { login ,test} from '../../userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-
+import {InitCount} from '../../../Product/productSlice';
 
 Login.propTypes = {
     closeDialog :PropTypes.func,
@@ -16,7 +16,6 @@ function Login(props) {
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar()
     const handleSubmit = async (values)=>{
-        console.log(values);
         try{
             const action = login(values)
             const resuftAction = await dispatch(action);
@@ -25,14 +24,11 @@ function Login(props) {
             if(closeDialog){
                 closeDialog();
             }
-
         }
         catch(error){
             console.log("fail" ,error.message);
-            enqueueSnackbar(error.message,{variant: 'error'});
-            
+            enqueueSnackbar(error.message,{variant: 'error'});  
         }
-
     }
     return (
         <div>

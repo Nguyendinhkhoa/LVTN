@@ -90,7 +90,7 @@ function Product(props) {
       ...prevFilters,
       page: page,
     }));
-    window.scrollTo(0, 600);
+    window.scrollTo(0, 400);
   };
   const HandleFiltersChange = (newFilters) => {
     setFilters((prevFilters) => ({
@@ -100,7 +100,7 @@ function Product(props) {
   };
   return (
     <div>
-      <SlideInProduct page="shop" />
+      <SlideInProduct page="Products" />
       <div className="ltn__product-area ltn__product-gutter mb-120">
         <div className="container">
           <div className="row">

@@ -10,17 +10,24 @@ export const addtocart = createAsyncThunk(
 
 const cartSlice = createSlice({
   name: 'Cart',
-  initialState: [
-  ],
+  initialState: {
+    cartItem : [],
+
+  }
+  ,
   reducers: {
-    
+    addItem(state,action){
+      state.cartItem = action.payload;
+      return state;
+    },
   },
   extraReducers: {
-    [addtocart.fulfilled]: (state, action) => {
-      state.push(action.payload);
-    },
+    // [addtocart.fulfilled]: (state, action) => {
+    //   state.push(action.payload);
+    // },
   },
 });
 
-const { reducer } = cartSlice;
+const { actions ,reducer } = cartSlice;
+export const {addItem} = actions;
 export default reducer;

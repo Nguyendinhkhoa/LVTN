@@ -14,26 +14,17 @@ import Register from './features/Auth/components/Register';
 import Cart from './features/Cart';
 import TextField from '@material-ui/core/TextField';
 import Test from './features/Test';
+import Search from './features/Search';
+import ScrollTop from './components/ScrollTop';
+import Account from './features/Account';
 
 function App() {
-  const handleForm = (e) => {
-    console.log('date', e.target.value);
-  };
+
   return (
     <div className="App">
+
       <Header />
-      <form  noValidate>
-        <TextField
-          id="date"
-          label="Birthday"
-          type="date"
-          defaultValue=""
-          onChange={handleForm}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </form>
+      {/* <button onClick={handleForm}>ClickMe</button> */}
       <Switch>
         <Redirect from="/home" to="/" />
         <Route path="/" component={HomePage} exact></Route>
@@ -45,8 +36,9 @@ function App() {
         <Route path="/login" component={Login}></Route>
         <Route path="/cart" component={Cart}></Route>
         <Route path="/test" component={Test}></Route>
+        <Route path="/search" component={Search}></Route>
+        <Route path="/account" component={Account}></Route>
         <Route component={NotFound}></Route>
-
       </Switch>
       <Footer />
     </div>

@@ -1,0 +1,14 @@
+#search-results{
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+#search-results h2{
+    color: #111;
+    margin-bottom: 15px;
+}
+#search-results hr{
+    width: 220px;
+    color :orangered;
+    height: 5px;
+    border-radius: 2px;
+}

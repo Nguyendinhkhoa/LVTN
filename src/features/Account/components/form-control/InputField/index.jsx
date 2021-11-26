@@ -9,10 +9,11 @@ InputField.propTypes = {
     name : PropTypes.string.isRequired,
     label : PropTypes.string,
     disabled : PropTypes.bool,
+    defaultValues : PropTypes.string,
 };
 
 function InputField(props) {
-    const{form,name,label,disabled,values}= props;
+    const{form,name,disabled,defaultValues}= props;
     const {errors } = form;
     const  hasError =  errors[name];
     return (
@@ -22,10 +23,13 @@ function InputField(props) {
         as={TextField}
         margin="normal"
         fullWidth
-        label={label}
+        defaultValues={defaultValues}
         disabled={disabled}
         error ={!!hasError}
         helperText={errors[name]?.message }
+        id="outlined-helperText"
+        variant="outlined"
+        size="small"
         />
     );
 }

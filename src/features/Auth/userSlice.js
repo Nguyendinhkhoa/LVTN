@@ -4,6 +4,7 @@ import userApi from '../../api/userApi';
 export const register = createAsyncThunk('users/register', async (payload) => {
   const data = await userApi.register(payload);
   localStorage.setItem('access_token', JSON.stringify(data.tokens.access.token));
+  localStorage.setItem('countCarts', JSON.stringify(data.countCarts));
   localStorage.setItem('user', JSON.stringify(data.user));
   //return user data
   return data.user;
@@ -11,33 +12,55 @@ export const register = createAsyncThunk('users/register', async (payload) => {
 export const login = createAsyncThunk('users/login', async (payload) => {
   const data = await userApi.login(payload);
   localStorage.setItem('access_token', JSON.stringify(data.tokens.access.token));
+  localStorage.setItem('countCarts', JSON.stringify(data.countCarts));
   localStorage.setItem('user', JSON.stringify(data.user));
   return data.user;
 });
+export const test = createAsyncThunk('users/test', async () => {
+  const data = await userApi.info();
+  localStorage.setItem('userInfo', JSON.stringify(data));
+  return data;
+});
+
+
 
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     current: JSON.parse(localStorage.getItem('user')) ||{},
-    setting: {},
+    setting: JSON.parse(localStorage.getItem('userInfo')) || {},
+    countCarts : JSON.parse(localStorage.getItem('countCarts')) || 0,
   },
   reducers: {
     logout(state){
       localStorage.clear();
       state.current = {};
+      state.countCarts = 0;
+    },
+    incre(state,action){
+      state.countCarts+=action.payload;
+    },
+    dlt(state,action){
+      state.countCarts-=action.payload;
+    },
+    changename(state,action){
+      state.current.name = action.payload;
     }
   },
   extraReducers: {
-    // 'user/register/fullfilled'
     [register.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
     [login.fulfilled]: (state, action) => {
       state.current = action.payload;
+      state.countCarts = JSON.parse(localStorage.getItem('countCarts')) ;
+    },
+    [test.fulfilled]: (state, action) => {
+      state.setting = action.payload;
     },
   },
 });
 
 const { actions , reducer } = userSlice;
-export const {logout} = actions;
+export const {logout,incre,dlt,changename} = actions;
 export default reducer;

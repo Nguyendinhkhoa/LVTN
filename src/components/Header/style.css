@@ -9,9 +9,12 @@
   margin-left: -15px;
   margin-right: -15px;
 }
-
+.MuiMenu-paper{
+  margin-top: 5px;
+}
 .ltn__header-area {
   z-index: 1;
+  margin-bottom: 20px;
   position: relative;
 }
 

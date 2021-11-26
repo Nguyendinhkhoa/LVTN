@@ -1,0 +1,65 @@
+.liton__wishlist-area{
+    margin-top: 120px;
+}
+.mb-50{
+    margin-bottom: 50px;
+}
+
+* ----------------------------------------------------
+    Myaccount Page
+---------------------------------------------------- */
+.nav1{
+    background-color: red;
+}
+.ltn__product-tab-area .ltn__tab-menu-list .nav {
+    display: block !important;
+    margin-right: 30px;
+    border: 1px solid #eee;
+}
+
+.ltn__tab-menu-list .nav a {
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e5eaee;
+}
+
+.ltn__tab-menu-list .nav a:last-child {
+    border-bottom: 0;
+}
+
+.ltn__tab-menu-list .nav a i {
+    font-size: 14px;
+}
+
+.ltn__tab-menu-list .nav a.active {
+    background-color: #171B2A;
+    color: #fff;
+}
+
+.ltn__myaccount-tab-content-inner>p {
+    padding: 20px;
+    background-color: #F2F6F7;
+}
+.table tr:nth-child(odd) {
+    background-color: #f7f8fa;
+}
+.table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+.account-info{
+    padding: 16px 24px 16px 16px;
+}
+.account-info .input-label{
+    font-size: 16px;
+    margin-top: 20px;
+}
+.account-info .submitButton{
+    font-size: 16px;
+    margin-top: 20px;
+}

@@ -14,8 +14,10 @@ import banner1 from './images/banner1.jpg';
 import banner2 from './images/banner2.jpg';
 import banner3 from './images/banner3.jpg';
 import LatestProduct from './components/LatestProduct';
+import ScrollTop from '../../components/ScrollTop';
 
 function HomePage(props) {
+
   const [listCate, SetlistCate] = useState([]);
   useEffect(() => {
     const fecthCategory = async () => {
@@ -29,6 +31,7 @@ function HomePage(props) {
 
   return (
     <>
+      <ScrollTop/>
       <div className="ltn__slider-area ltn__slider-3---  section-bg-1--- mt-30">
         <div className="container">
           <div className="row">

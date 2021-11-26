@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import { Link, NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -13,25 +13,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { logout } from '../../features/Auth/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { searchProduct } from './SearchSlice';
+import { useSnackbar } from 'notistack';
 
 const MODE = {
   LOGIN: 'Login',
   REGISTER: 'Register',
 };
 function Header(props) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [anchorEl, SetAnchoEl] = useState(null);
+  const [search, SetSeacrh]=useState('');
   const history = useHistory();
   const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const countCarts = useSelector((state) => state.user.countCarts);
+  // const countCarts = localStorage.getItem('countCarts');
   const loggedInUser = useSelector((state) => state.user);
   const isLoggedIn = !!loggedInUser.current.id;
   const handleClose = () => {
     setOpen(false);
   };
+
   const hanldeUserClick = (e) => {
     SetAnchoEl(e.currentTarget);
   };
@@ -45,7 +53,34 @@ function Header(props) {
   };
   const handelAccount = () => {
     history.push('/account');
+    SetAnchoEl(null);
   };
+  const handleSearchInput = (event)=>{
+    SetSeacrh(event.target.value);
+  }
+  const handleSubmit = async (event)=>{
+    event.preventDefault();
+    if(search===''){
+      enqueueSnackbar(`Please enter search keyword`, {
+        variant: 'error',
+      });
+    }
+    const params = {
+      limit :10 ,
+      page :0 ,
+      sortBy: '-createdAt',
+      search : search,
+    }
+    try{
+    const action = searchProduct(params);
+    const resuftAction = await dispatch(action);
+    unwrapResult(resuftAction);
+    history.push("/search");
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
   return (
     <>
       <Dialog
@@ -191,8 +226,8 @@ function Header(props) {
                   </div>
 
                   <div className="header-search-2">
-                    <form id="  " method="get" action="">
-                      <input type="text" name="search" placeholder="Search here..." />
+                    <form  onSubmit={handleSubmit}>
+                      <input onChange={handleSearchInput} type="text" name="search" placeholder="Search here..." />
                       <button type="submit">
                         <span>
                           <i className="fas fa-search"></i>
@@ -282,7 +317,7 @@ function Header(props) {
                   <Link to="/cart" className="ltn__utilize-toggle">
                     <span className="mini-cart-icon">
                       <i className="fas fa-shopping-cart"></i>
-                      <sup>0</sup>
+                      <sup>{isLoggedIn ? countCarts : 0}</sup>
                     </span>
                     <h6>
                       <span >Your Cart</span>

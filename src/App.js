@@ -17,14 +17,18 @@ import Test from './features/Test';
 import Search from './features/Search';
 import ScrollTop from './components/ScrollTop';
 import Account from './features/Account';
-
+import Order from './features/Order';
+import About from './features/About';
+import ViewOder from './features/ViewOrder';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 function App() {
-
   return (
     <div className="App">
-
+      <button style={{ position: 'fixed', right: '8px', bottom: '0px', zIndex: 99999 }}>
+        ClickMe
+      </button>
       <Header />
-      {/* <button onClick={handleForm}>ClickMe</button> */}
       <Switch>
         <Redirect from="/home" to="/" />
         <Route path="/" component={HomePage} exact></Route>
@@ -37,7 +41,10 @@ function App() {
         <Route path="/cart" component={Cart}></Route>
         <Route path="/test" component={Test}></Route>
         <Route path="/search" component={Search}></Route>
-        <Route path="/account" component={Account}></Route>
+        <Route path="/account" component={Account} exact></Route>
+        <Route path="/order" component={Order}></Route>
+        <Route path="/about" component={About}></Route>
+        <Route path="/account/view-order/:orderId" component={ViewOder}></Route>
         <Route component={NotFound}></Route>
       </Switch>
       <Footer />

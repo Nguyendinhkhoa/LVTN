@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import SlideInProduct from '../Product/components/Slide';
 import Product from '../Product/components/Product';
 import './search.css';
-import Loading from '../Loading';
 import Test from '../Test';
 
 function Search(props) {

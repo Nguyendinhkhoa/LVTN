@@ -6,7 +6,7 @@ function Loading(props) {
     <>
       <div className="container">
         <div id="preloder">
-          <div class="loader"></div>
+          <div className="loader"></div>
         </div>
       </div>
     </>

@@ -44,27 +44,7 @@ function Product(props) {
     page: 1,
     category: cateSort,
   });
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const fecthCategory = async () => {
-  //     const categoryList = await categoryApi.getAll();
-  //     const arrCate = categoryList.results;
-  //     SetlistCate(arrCate);
-  //     setLoading(false);
-  //   };
 
-  //   fecthCategory();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fecthProduct = async () => {
-  //     const productList = await productApi.getAll(filters);
-  //     const arrProduct = productList.results;
-  //     SetListProduct(arrProduct);
-  //   };
-  //   setLoading(false);
-  //   fecthProduct();
-  // }, [!location.search]);
 
   useEffect(() => {
     setLoading(true);

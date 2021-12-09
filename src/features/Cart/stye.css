@@ -245,3 +245,17 @@ h4 {
     border: 2px solid #ebebeb;
     padding: 12px 20px 12px 20px;
 }
+.empty-cart{
+  margin: 20px auto ;
+  align-items: center;
+  text-align: center;
+}
+.empty-cart span{
+ text-align: center;
+ font-size: 20px;
+}
+.empty-cart Button{
+  background-color: #f48fb1;
+  max-width: 200px;
+  margin: auto;
+}

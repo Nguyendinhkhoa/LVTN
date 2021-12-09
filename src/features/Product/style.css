@@ -443,6 +443,11 @@ element.style {
     width: 140px;
     text-align: center;
 }
+.cart-plus-minus input{
+    /* border: 2px solid; */
+    width: 70px;
+    height: 50px;
+}
 .dec.qtybutton {
     float: left;
     border-right: 2px solid;

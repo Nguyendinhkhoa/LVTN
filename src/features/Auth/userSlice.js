@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from '../../api/userApi';
-
 export const register = createAsyncThunk('users/register', async (payload) => {
   const data = await userApi.register(payload);
   localStorage.setItem('access_token', JSON.stringify(data.tokens.access.token));
@@ -33,15 +32,23 @@ const userSlice = createSlice({
   },
   reducers: {
     logout(state){
+      window.location.replace("http://localhost:3006/")
       localStorage.clear();
       state.current = {};
       state.countCarts = 0;
     },
     incre(state,action){
       state.countCarts+=action.payload;
+      localStorage.setItem('countCarts', JSON.stringify(state.countCarts));
+      
     },
     dlt(state,action){
-      state.countCarts-=action.payload;
+      state.countCarts--;
+      localStorage.setItem('countCarts', JSON.stringify(state.countCarts));
+    },
+    setCoutCarts(state,action){
+      state.countCarts = 0;
+      localStorage.setItem('countCarts', JSON.stringify(state.countCarts));
     },
     changename(state,action){
       state.current.name = action.payload;
@@ -62,5 +69,5 @@ const userSlice = createSlice({
 });
 
 const { actions , reducer } = userSlice;
-export const {logout,incre,dlt,changename} = actions;
+export const {logout,incre,dlt,changename,setCoutCarts} = actions;
 export default reducer;

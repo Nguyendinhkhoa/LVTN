@@ -8,57 +8,136 @@ import Loading from '../Loading';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { changename, test } from '../Auth/userSlice';
-import { useSnackbar } from 'notistack'
-
+import { useSnackbar } from 'notistack';
+import PasswordForm from './components/PasswordForm';
+import orderApi from '../../api/orderApi';
+import { Link, Redirect } from 'react-router-dom';
+import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+const useStyles = makeStyles((theme) => ({
+  pagination: {
+    display: 'flex',
+    flexFlow: 'row nowap',
+    justifyContent: 'center',
+  },
+}));
 Account.propTypes = {};
 function Account(props) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [user, setUser] = useState({});
+  const [listOrder, setListOrder] = useState([]);
   const [reload, setReload] = useState(true);
   const [loading, setLoading] = useState(1);
-  const [flag,setFlag] =useState(true);
-  const {enqueueSnackbar} = useSnackbar()
+  const login = JSON.parse(localStorage.getItem('user'));
+  const [flag, setFlag] = useState(true);
+  const { enqueueSnackbar } = useSnackbar();
+  const [params,setParams] = useState({
+    page : 1,
+  })
+  const [pagination, setPagination] = useState({
+    totalPage: 1,
+    page: 1,
+  }); 
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(1);
         const fetchUser = await userApi.info();
-        console.log('user account', fetchUser);
         setUser(fetchUser);
-
       } catch (error) {
         console.log('fetch error', error);
       }
       setLoading(0);
     })();
   }, [reload]);
+  useEffect(() => {
+    setLoading(1);
+    (async () => {
+      try {
+        const fetchOrder = await orderApi.getOrder(params);
+        console.log('order ne', fetchOrder.results);
+        setListOrder(fetchOrder.results);
+        setPagination({
+          ...pagination,
+          totalPage: fetchOrder.totalPages,
+          page: fetchOrder.page,
+        });
+
+        console.log(pagination);
+      } catch (error) {
+        console.log('fetch error', error);
+      }
+      setLoading(0);
+    })();
+  }, [params]);
 
   const handleSubmitInfo = async (values) => {
     delete values['email'];
     try {
       (async () => {
         try {
+          setReload(!reload);
           const updateUser = await userApi.update(values);
+          // console.log(,updateUser)
           setUser(updateUser);
-          const localUser =  JSON.parse(localStorage.getItem('user'));
+          const localUser = JSON.parse(localStorage.getItem('user'));
           localUser.name = values['name'];
-          localStorage.setItem('user', JSON.stringify({...localUser, name: values.name , phone : values.phone , address : values.address}));
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              ...localUser,
+              name: values.name,
+              phone: values.phone,
+              address: values.address,
+            })
+          );
+          dispatch(changename(values.name));
+          enqueueSnackbar('Change infomation successful', { variant: 'success' });
         } catch (error) {
           console.log('fetch error', error);
         }
       })();
-      dispatch(changename(values.name));
-      enqueueSnackbar('Change infomation successful',{variant: 'success'});
-    } 
-    catch (error) {
+    } catch (error) {
       console.log('fail', error.message);
-      // enqueueSnackbar(error.message,{variant: 'error'});
     }
   };
-  // if (loading === 1) return <Loading />;
-
-  return (
+  const handleSubmitPassword = async (values) => {
+    delete values['confirmPassword'];
+    try {
+      (async () => {
+        try {
+          setReload(!reload);
+          await userApi.updatePassword(values);
+          enqueueSnackbar('Change Password successfully', { variant: 'success' });
+        } catch (error) {
+          console.log('fetch error', error);
+          enqueueSnackbar(error.message, { variant: 'error' });
+        }
+      })();
+      setLoading(0);
+    } catch (error) {
+      console.log('fail', error.message);
+    }
+  };
+  const hanldeInfoChange = (values) => {
+    setUser({
+      email: values.email,
+      name: values.name,
+      phone: values.phone,
+      address: values.address,
+    });
+    console.log(values);
+  };
+  const handlePageChange = (e, page) => {
+    setParams((prevFilters) => ({
+      ...prevFilters,
+      page: page,
+    }));
+  }
+  return login ? (
     <>
       <SlideInProduct page="Account" />
       <div className="liton__wishlist-area pb-70">
@@ -77,10 +156,13 @@ function Account(props) {
                           <a data-bs-toggle="tab" href="#liton_tab_1_2">
                             Orders <i className="fas fa-file-alt" />
                           </a>
-                          <a data-bs-toggle="tab" href="#liton_tab_1_4">
-                            Change password <i className="fas fa-map-marker-alt" />
+                          <a data-bs-toggle="tab" href="#liton_tab_1_3">
+                            Change Information <i className="fas fa-file-alt" />
                           </a>
-                          <a href="login.html">
+                          <a data-bs-toggle="tab" href="#liton_tab_1_4">
+                            Change Password <i className="fas fa-map-marker-alt" />
+                          </a>
+                          <a>
                             Logout <i className="fas fa-sign-out-alt" />
                           </a>
                         </div>
@@ -94,7 +176,37 @@ function Account(props) {
                               The following addresses will be used on the checkout page by default.
                             </p>
                             <div className="ltn__form-box">
-                              <AccountForm onsubmit={handleSubmitInfo} user={user} />
+                              {loading === 1 ? (
+                                <Loading />
+                              ) : (
+                                <>
+                                  <div className="row account-details">
+                                    <div className="col-md-4">
+                                      <img
+                                        src="https://source.unsplash.com/random/200x200?sig=1"
+                                        alt=""
+                                      />
+                                    </div>
+                                    <div className="col-md-7 info-user">
+                                      <p>
+                                        <span>Email : </span> {user.email}
+                                      </p>
+                                      <p>
+                                        <span>fullName : </span>
+                                        {user.name}
+                                      </p>
+                                      <p>
+                                        <span>Phone : </span>
+                                        {user.phone ? user.phone : 'Not be up-to-date.'}
+                                      </p>
+                                      <p>
+                                        <span>Adreess : </span>
+                                        {user.address ? user.address : 'Not be up-to-date.'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -105,88 +217,74 @@ function Account(props) {
                                 <thead>
                                   <tr>
                                     <th>Order</th>
-                                    <th>Date</th>
+                                    <th>shipping code</th>
+                                    <th>shipping Unit</th>
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Jun 22, 2019</td>
-                                    <td>Pending</td>
-                                    <td>$3000</td>
-                                    <td>
-                                      <a href="cart.html">View</a>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>Nov 22, 2019</td>
-                                    <td>Approved</td>
-                                    <td>$200</td>
-                                    <td>
-                                      <a href="cart.html">View</a>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>Jan 12, 2020</td>
-                                    <td>On Hold</td>
-                                    <td>$990</td>
-                                    <td>
-                                      <a href="cart.html">View</a>
-                                    </td>
-                                  </tr>
+                                  {listOrder.map((item, ind) => {
+                                    return (
+                                      <tr key={item.id}>
+                                        <td>{ind + 1}</td>
+                                        <td>
+                                          {item.shippingCode ? item.shippingCode : 'Not Found'}
+                                        </td>
+                                        <td>
+                                          {item.shippingUnit ? item.shippingUnit : 'Not Found'}
+                                        </td>
+                                        <td>{item.orderStatus}</td>
+                                        <td>
+                                          {item.totalAmount
+                                            .toString()
+                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                          ₫
+                                        </td>
+                                        <td>
+                                          <Link to={`/account/view-order/${item.id}`}>View</Link>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
                                 </tbody>
                               </table>
                             </div>
+                            <div className="row pagination-order">
+                              <Box className={classes.pagination}>
+                                {listOrder.length > 0 && (
+                                  <Pagination
+                                    count={pagination.totalPage}
+                                    page={pagination.page}
+                                    onChange={handlePageChange}
+                                    color="secondary"
+                                  />
+                                )}
+                              </Box>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="tab-pane fade" id="liton_tab_1_3">
+                          <div className="ltn__myaccount-tab-content-inner">
+                            {loading === 1 ? (
+                              <Loading />
+                            ) : (
+                              <AccountForm
+                                onsubmit={handleSubmitInfo}
+                                user={user}
+                                InfoChange={hanldeInfoChange}
+                              />
+                            )}
                           </div>
                         </div>
                         <div className="tab-pane fade" id="liton_tab_1_4">
                           <div className="ltn__myaccount-tab-content-inner">
-                            <p>
-                              The following addresses will be used on the checkout page by default.
-                            </p>
-                            <div className="row">
-                              <div className="col-md-6 col-12 learts-mb-30">
-                                <h4>
-                                  Billing Address{' '}
-                                  <small>
-                                    <a href="#">edit</a>
-                                  </small>
-                                </h4>
-                                <address>
-                                  <p>
-                                    <strong>Alex Tuntuni</strong>
-                                  </p>
-                                  <p>
-                                    1355 Market St, Suite 900 <br />
-                                    San Francisco, CA 94103
-                                  </p>
-                                  <p>Mobile: (123) 456-7890</p>
-                                </address>
-                              </div>
-                              <div className="col-md-6 col-12 learts-mb-30">
-                                <h4>
-                                  Shipping Address{' '}
-                                  <small>
-                                    <a href="#">edit</a>
-                                  </small>
-                                </h4>
-                                <address>
-                                  <p>
-                                    <strong>Alex Tuntuni</strong>
-                                  </p>
-                                  <p>
-                                    1355 Market St, Suite 900 <br />
-                                    San Francisco, CA 94103
-                                  </p>
-                                  <p>Mobile: (123) 456-7890</p>
-                                </address>
-                              </div>
-                            </div>
+                            {loading === 1 ? (
+                              <Loading />
+                            ) : (
+                              <PasswordForm onsubmit={handleSubmitPassword} />
+                            )}
                           </div>
                         </div>
                       </div>
@@ -200,6 +298,8 @@ function Account(props) {
         </div>
       </div>
     </>
+  ) : (
+    <Redirect to="/" />
   );
 }
 

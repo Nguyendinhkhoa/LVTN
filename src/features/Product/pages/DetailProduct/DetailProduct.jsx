@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SlideInProduct from '../../components/Slide';
 import { withRouter } from 'react-router';
 import '../../style.css';
@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import cartApi from '../../../../api/cartApi';
 import { addItem } from '../../productSlice';
 import { incre } from '../../../Auth/userSlice';
+import ScrollTop from '../../../../components/ScrollTop';
 function DetailProduct(props) {
   const [slug, SetSlug] = useState(props.match.params.slug);
   const [product, SetProduct] = useState({});
@@ -99,7 +100,6 @@ function DetailProduct(props) {
       return;
     } else {
       if (listCart.length === 0) {
-        console.log('landau');
         dispatch(incre(1));
       } else {
         const flag = listCart
@@ -109,7 +109,6 @@ function DetailProduct(props) {
           .indexOf(product.id);
         if (flag === -1) {
           dispatch(incre(1));
-          console.log('duoc r ne');
         }
       }
     }
@@ -121,6 +120,7 @@ function DetailProduct(props) {
         <Loading />
       ) : (
         <>
+          <ScrollTop />
           <SlideInProduct page="Product Detail" />
           <div className="ltn__shop-details-area pb-85">
             <div className="container">
@@ -176,7 +176,7 @@ function DetailProduct(props) {
                             <ul>
                               <li>
                                 <div className="cart-plus-minus">
-                                  <TextField
+                                  {/* <TextField
                                     defaultValue="1"
                                     onChange={onEnter}
                                     type="number"
@@ -187,6 +187,15 @@ function DetailProduct(props) {
                                       shrink: true,
                                     }}
                                     variant="outlined"
+                                  /> */}
+                                  <input
+                                    id="test-input"
+                                    className="form-control"
+                                    type="number"
+                                    min={1}
+                                    width="50px"
+                                    onChange={onEnter}
+                                    defaultValue={1}
                                   />
                                 </div>
                               </li>
@@ -345,32 +354,32 @@ function DetailProduct(props) {
                                     </div>
                                     <div className="ltn__commenter-comment">
                                       <h6>
-                                        <a href="#">Adam Smit</a>
+                                        <a>Adam Smit</a>
                                       </h6>
                                       <div className="product-ratting">
                                         <ul>
                                           <li>
-                                            <a href="#">
+                                            <a>
                                               <i className="fas fa-star" />
                                             </a>
                                           </li>
                                           <li>
-                                            <a href="#">
+                                            <a>
                                               <i className="fas fa-star" />
                                             </a>
                                           </li>
                                           <li>
-                                            <a href="#">
+                                            <a>
                                               <i className="fas fa-star" />
                                             </a>
                                           </li>
                                           <li>
-                                            <a href="#">
+                                            <a>
                                               <i className="fas fa-star-half-alt" />
                                             </a>
                                           </li>
                                           <li>
-                                            <a href="#">
+                                            <a>
                                               <i className="far fa-star" />
                                             </a>
                                           </li>

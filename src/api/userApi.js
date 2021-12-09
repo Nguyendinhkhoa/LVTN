@@ -17,6 +17,10 @@ const userApi = {
         const url="/api/v1/users/update-infomation"
         return axiosClient.put(url,data);
     },
+    updatePassword(data){
+        const url = "/api/v1/users/update-password"
+        return axiosClient.put(url,data);
+    }
 
 
 };

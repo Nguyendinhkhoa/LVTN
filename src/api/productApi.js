@@ -14,6 +14,10 @@ const productApi = {
         const url = `api/v1/products/search-product`;
         return axiosClient.get(url,{params});
     },
+    recommend(params){
+        const url = `api/v1/products/recommend`;
+        return axiosClient.get(url,{params});
+    },
 
     add(data){
         const url = `/products/`;
@@ -29,6 +33,7 @@ const productApi = {
         const url = `/products/${id}`;
         return axiosClient.delete(url,id);
     }
+
 
 };
 

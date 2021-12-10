@@ -54,8 +54,9 @@ function Account(props) {
     })();
   }, [reload]);
   useEffect(() => {
-    setLoading(1);
+
     (async () => {
+      setLoading(1);
       try {
         const fetchOrder = await orderApi.getOrder(params);
         console.log('order ne', fetchOrder.results);
@@ -217,8 +218,8 @@ function Account(props) {
                                 <thead>
                                   <tr>
                                     <th>Order</th>
+                                    <th>Create At</th>
                                     <th>shipping code</th>
-                                    <th>shipping Unit</th>
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Action</th>
@@ -230,10 +231,10 @@ function Account(props) {
                                       <tr key={item.id}>
                                         <td>{ind + 1}</td>
                                         <td>
-                                          {item.shippingCode ? item.shippingCode : 'Not Found'}
+                                          {item.updatedAt ? item.updatedAt : 'Not Found'}
                                         </td>
                                         <td>
-                                          {item.shippingUnit ? item.shippingUnit : 'Not Found'}
+                                          {item.shippingCode ? item.shippingCode : 'Not Found'}
                                         </td>
                                         <td>{item.orderStatus}</td>
                                         <td>

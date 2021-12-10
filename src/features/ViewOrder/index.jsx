@@ -6,6 +6,7 @@ import './style.css';
 import CustomizedSteppers from './Stepper/CustomizedSteppers';
 import CancelOrder from './Stepper/CancelOrder';
 import Loading from '../Loading';
+
 function ViewOder(props) {
   const orderId = props.match.params.orderId;
   const [order, setOrder] = useState({});
@@ -22,6 +23,7 @@ function ViewOder(props) {
         };
         const order = await orderApi.getOderById(params);
         setOrder(order);
+        console.log(order);
         if(order.orderStatus === 'Unconfirm'){
           setOrderCancel(true);
         }
@@ -35,7 +37,7 @@ function ViewOder(props) {
           case "Shipping" : 
           setOrderStatus(2);
           break;
-          case "Conpleted" : 
+          case "Complete" : 
           setOrderStatus(3);
           break;
         }

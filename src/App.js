@@ -22,12 +22,13 @@ import About from './features/About';
 import ViewOder from './features/ViewOrder';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Chat from './components/Chat';
 function App() {
+
   return (
     <div className="App">
-      <button style={{ position: 'fixed', right: '8px', bottom: '0px', zIndex: 99999 }}>
-        ClickMe
-      </button>
+      <Chat/>
+
       <Header />
       <Switch>
         <Redirect from="/home" to="/" />

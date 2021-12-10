@@ -14,6 +14,7 @@ import cartApi from '../../../../api/cartApi';
 import { addItem } from '../../productSlice';
 import { incre } from '../../../Auth/userSlice';
 import ScrollTop from '../../../../components/ScrollTop';
+import Slider from 'react-slick';
 function DetailProduct(props) {
   const [slug, SetSlug] = useState(props.match.params.slug);
   const [product, SetProduct] = useState({});
@@ -23,10 +24,22 @@ function DetailProduct(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(1);
   const [quantity, setQuantity] = useState(1);
+  const [recommendProduct,setRecommentProduct] = useState([]);
   const dispatch = useDispatch();
 
   const [quantityAddCart, SetQuantityAddCart] = useState(0);
   const [listCart, setListCart] = useState([]);
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 3000,
+  };
   useEffect(() => {
     const fecthCart = async () => {
       const cart = await cartApi.getCart();
@@ -36,6 +49,14 @@ function DetailProduct(props) {
     };
     fecthCart();
   }, [quantityAddCart]);
+  useEffect(()=>{
+    const fecthRecommend = async()=>{
+      const reProduct = await productApi.recommend({page : 0 , limit : 10});
+      console.log('recommend',reProduct.results);
+      setRecommentProduct(reProduct.results);
+    }
+    fecthRecommend();
+  },[])
   useEffect(() => {
     try {
       const fecthProduct = async () => {
@@ -176,18 +197,7 @@ function DetailProduct(props) {
                             <ul>
                               <li>
                                 <div className="cart-plus-minus">
-                                  {/* <TextField
-                                    defaultValue="1"
-                                    onChange={onEnter}
-                                    type="number"
-                                    InputProps={{
-                                      inputProps: { min: 1, max: product.inventoryQty },
-                                    }}
-                                    InputLabelProps={{
-                                      shrink: true,
-                                    }}
-                                    variant="outlined"
-                                  /> */}
+
                                   <input
                                     id="test-input"
                                     className="form-control"
@@ -254,9 +264,7 @@ function DetailProduct(props) {
                         >
                           Description
                         </a>
-                        <a data-bs-toggle="tab" href="#liton_tab_details_1_2" className>
-                          Reviews
-                        </a>
+
                       </div>
                     </div>
                     <div className="tab-content">
@@ -269,253 +277,7 @@ function DetailProduct(props) {
 
                         {/* </div> */}
                       </div>
-                      <div className="tab-pane fade" id="liton_tab_details_1_2">
-                        <div className="ltn__shop-details-tab-content-inner">
-                          <h4 className="title-2">Customer Reviews</h4>
-                          <div className="product-ratting">
-                            <ul>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star" />
-                              </li>
-                              <li>
-                                <i className="fas fa-star-half-alt" />
-                              </li>
-                              <li>
-                                <i className="far fa-star" />
-                              </li>
-                              <li className="review-total">
-                                <span> ( 95 Reviews )</span>
-                              </li>
-                            </ul>
-                          </div>
-                          <hr />
-                          {/* comment-area */}
-                          <div className="ltn__comment-area mb-30">
-                            <div className="ltn__comment-inner">
-                              <ul>
-                                <li>
-                                  <div className="ltn__comment-item clearfix">
-                                    <div className="ltn__commenter-img">
-                                      <img src="img/testimonial/1.jpg" alt="Image" />
-                                    </div>
-                                    <div className="ltn__commenter-comment">
-                                      <h6>
-                                        <span>Adam Smit</span>
-                                      </h6>
-                                      <div className="product-ratting">
-                                        <ul>
-                                          <li>
-                                            <span>
-                                              <i className="fas fa-star" />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <i className="fas fa-star" />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <i className="fas fa-star" />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <i className="fas fa-star-half-alt" />
-                                            </span>
-                                          </li>
-                                          <li>
-                                            <span>
-                                              <i className="far fa-star" />
-                                            </span>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Doloribus, omnis fugit corporis iste magnam ratione.
-                                      </p>
-                                      <span className="ltn__comment-reply-btn">
-                                        September 3, 2020
-                                      </span>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div className="ltn__comment-item clearfix">
-                                    <div className="ltn__commenter-img">
-                                      <img src="img/testimonial/3.jpg" alt="Image" />
-                                    </div>
-                                    <div className="ltn__commenter-comment">
-                                      <h6>
-                                        <a>Adam Smit</a>
-                                      </h6>
-                                      <div className="product-ratting">
-                                        <ul>
-                                          <li>
-                                            <a>
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a>
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a>
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a>
-                                              <i className="fas fa-star-half-alt" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a>
-                                              <i className="far fa-star" />
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Doloribus, omnis fugit corporis iste magnam ratione.
-                                      </p>
-                                      <span className="ltn__comment-reply-btn">
-                                        September 2, 2020
-                                      </span>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div className="ltn__comment-item clearfix">
-                                    <div className="ltn__commenter-img">
-                                      <img src="img/testimonial/2.jpg" alt="Image" />
-                                    </div>
-                                    <div className="ltn__commenter-comment">
-                                      <h6>
-                                        <a href="#">Adam Smit</a>
-                                      </h6>
-                                      <div className="product-ratting">
-                                        <ul>
-                                          <li>
-                                            <a href="#">
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="#">
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="#">
-                                              <i className="fas fa-star" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="#">
-                                              <i className="fas fa-star-half-alt" />
-                                            </a>
-                                          </li>
-                                          <li>
-                                            <a href="#">
-                                              <i className="far fa-star" />
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Doloribus, omnis fugit corporis iste magnam ratione.
-                                      </p>
-                                      <span className="ltn__comment-reply-btn">
-                                        September 2, 2020
-                                      </span>
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          {/* comment-reply */}
-                          <div className="ltn__comment-reply-area ltn__form-box mb-30">
-                            <form action="#">
-                              <h4 className="title-2">Add a Review</h4>
-                              <div className="mb-30">
-                                <div className="add-a-review">
-                                  <h6>Your Ratings:</h6>
-                                  <div className="product-ratting">
-                                    <ul>
-                                      <li>
-                                        <a href="#">
-                                          <i className="fas fa-star" />
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <i className="fas fa-star" />
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <i className="fas fa-star" />
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <i className="fas fa-star-half-alt" />
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <a href="#">
-                                          <i className="far fa-star" />
-                                        </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="input-item input-item-textarea ltn__custom-icon">
-                                <textarea placeholder="Type your comments...." />
-                              </div>
-                              <div className="input-item input-item-name ltn__custom-icon">
-                                <input type="text" placeholder="Type your name...." />
-                              </div>
-                              <div className="input-item input-item-email ltn__custom-icon">
-                                <input type="email" placeholder="Type your email...." />
-                              </div>
-                              <div className="input-item input-item-website ltn__custom-icon">
-                                <input
-                                  type="text"
-                                  name="website"
-                                  placeholder="Type your website...."
-                                />
-                              </div>
-                              <label className="mb-0">
-                                <input type="checkbox" name="agree" /> Save my name, email, and
-                                website in this browser for the next time I comment.
-                              </label>
-                              <div className="btn-wrapper">
-                                <button
-                                  className="btn theme-btn-1 btn-effect-1 text-uppercase"
-                                  type="submit"
-                                >
-                                  Submit
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
+
                     </div>
                   </div>
                   {/* Shop Tab End */}
@@ -675,6 +437,33 @@ function DetailProduct(props) {
                   </a>
                 </div>
               </aside> */}
+                </div>
+              </div>
+              <div className="row recommend-sys">
+                <h4>YOU MAY ALSO LIKE</h4>
+                <div className="slider-container">
+                  <Slider {...settings} className="card__container--inner">
+                    {recommendProduct && recommendProduct.map((item,idx)=>{
+                      return(
+                        <div className="card__container--inner--card" key={idx}>
+                        <img
+                          src={item.image}
+                          alt="hero_img"
+                        />
+  
+                        <div class="product-info">
+                          <h2 class="product-title">
+                            <a href="product-details.html">
+                             {item.name}
+                            </a>
+                          </h2>
+                        </div>
+                      </div>
+                      )
+                    })}
+
+
+                  </Slider>
                 </div>
               </div>
             </div>

@@ -75,7 +75,7 @@ function Cart(props) {
     });
     setCartSubtotal(sum);
     const updateRes = async () => {
-      const res = await cartApi.updateQuantity({ quantity: quantityUpdate }, item.id);
+      const res = await cartApi.updateQuantity({ quantity: Number(quantityUpdate) }, item.id);
       console.log('res', res);
     };
     updateRes();

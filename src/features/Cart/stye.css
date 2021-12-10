@@ -259,3 +259,8 @@ h4 {
   max-width: 200px;
   margin: auto;
 }
+.animation {
+  width: 250px;
+  height: 250px;
+  margin: auto;
+}

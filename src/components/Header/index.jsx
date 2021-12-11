@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import './style.css';
 import { Link, NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -33,7 +33,6 @@ function Header(props) {
     setOpen(true);
   };
   const countCarts = useSelector((state) => state.user.countCarts);
-  // const countCarts = localStorage.getItem('countCarts');
   const loggedInUser = useSelector((state) => state.user);
   const isLoggedIn = !!loggedInUser.current.id;
   const handleClose = () => {

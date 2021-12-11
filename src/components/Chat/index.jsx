@@ -7,47 +7,60 @@ import SendIcon from '@material-ui/icons/Send';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io("http://teamedicine.tk:3000")
+const socket = io('http://teamedicine.tk:3000');
 
 function Chat(props) {
-  const [logs, setLogs] = useState([
-    {
-      id: 1,
-      text: 'dsfds',
-      sender: 'me',
-    },
-  ]);
-  const [newMessage, setNewMessage] = useState({});
+  const [logs, setLogs] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const userId = JSON.parse(localStorage.getItem('user')).id;
 
-  socket.on("connect", () => {
-     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-   });
+  // CONNECT: ket noi server chat
+  socket.on('connect', () => {
+    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    // JOIN ROOM: vao room -> anhkhoa dang online, da vao chat
+    socket.emit('join_room', { roomId: 'anhkhoa' });
+  });
 
+  // Gui chat len server
   const onEnterChat = (e) => {
+    console.log(newMessage);
     e.preventDefault();
-    setLogs([
-      ...logs,
-      {
-        newMessage,
-      },
-    ]);
-    setNewMessage('');
-    socket.emit("chat_text", {roomId: 'anhkhoa', roomName: "Anh Khoa", message: newMessage})
+    let mess = newMessage;
+    socket.emit('chat_text', {
+      roomId: 'anhkhoa',
+      senderId: 'anhkhoa',
+      roomName: 'Anh Khoa',
+      message: mess,
+    });
+    mess = ' ';
+    setNewMessage(mess);
   };
 
-  useEffect(()=>{
-  },[])
-
-  socket.emit("join_room", {roomId: "anhkhoa"})
-  socket.on("res_chat_text", (res) => {
-       console.log(res)
-  })
-
+  useEffect(() => {
+    // ON: recieve message -> set state
+    socket.on('res_chat_text', (res) => {
+      console.log(res.message);
+      setLogs([...logs, { name: res.roomName, message: res.message }]);
+    });
+  });
+  const renderChat = () => {
+    console.log(logs);
+    return logs.map((log, index) => {
+      return (
+        <>
+          <div className="log_inline" key={index}>
+            <span>{log.name}</span> - 
+            <span> {log.message}</span>
+          </div>
+          <br />
+        </>
+      );
+    });
+  };
   const onChangeText = (e) => {
     e.preventDefault();
     setNewMessage(e.target.value);
   };
-
   return (
     <>
       <div id="body">
@@ -64,21 +77,14 @@ function Chat(props) {
           </div>
           <div className="chat-box-body">
             <div className="chat-box-overlay" />
-            <div className="chat-logs">
-              {logs.map((log, index) => {
-                return (
-                  <div className="log_inline" key={index}>
-                    {log.text}
-                  </div>
-                );
-              })}
-            </div>
+            <div className="chat-logs">{renderChat()}</div>
           </div>
           <div className="chat-input">
             <form onSubmit={onEnterChat}>
               <input
                 type="text"
                 id="chat-input"
+                name="message"
                 value={newMessage}
                 onChange={(e) => onChangeText(e)}
                 placeholder="Send a message..."

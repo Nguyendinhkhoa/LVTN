@@ -205,8 +205,15 @@
   clear: both;
   max-width: 60%;
   word-break: break-word;
+}
+
+.chat-msg.me {
   float: right;
 }
+.chat-msg.other{
+  float: left;
+}
+
  .cm-msg-text {
   float: right;
   margin-right: 10px;

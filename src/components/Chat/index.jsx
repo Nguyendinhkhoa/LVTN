@@ -6,45 +6,47 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import SendIcon from '@material-ui/icons/Send';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
+import { useForm } from 'react-hook-form';
 const socket = io('http://teamedicine.tk:3000');
 function Chat(props) {
   const [logs, setLogs] = useState([]);
+  const { handleSubmit, register, reset } = useForm();
   const [newMessage, setNewMessage] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
-
-  // CONNECT: ket noi server chat
   socket.on('connect', () => {
-    socket.emit('join_room', { roomId: user.id });
+    socket.emit('join_room', { room: user.id });
   });
 
-  // Gui chat len server
-  const onEnterChat = (e) => {
-    console.log(newMessage);
+  const onEnterChat = (data, e) => {
     e.preventDefault();
-    let mess = newMessage;
+    let mess = data.message;
     socket.emit('chat_text', {
       roomId: user.id,
       senderId: user.id,
       roomName: 'Khoa Đẹp Trai',
       message: mess,
     });
-    setLogs([...logs, { userId: user.id, message: mess }]);
-    mess = ' ';
-    setNewMessage(mess);
-  };
-
-  useEffect(() => {
-    socket.on('res_chat_text', (res) => {
-      console.log(res);
-      // setLogs([...logs, { name: res.roomName, message: res.message }]);
+    setLogs([...logs, { senderId: user.id, message: mess }]);
+    reset({
+      message: '',
     });
+    var objDiv = document.getElementById('main-chat-logs');
+    objDiv.scrollTop = objDiv.scrollHeight;
+  };
+  socket.on('res_chat_text', (res) => {
+    setLogs([...logs, { senderId: res.senderId, message: res.message }]);
+  });
+  useEffect(() => {
+    var objDiv = document.getElementById('main-chat-logs');
+    objDiv.scrollTop = objDiv.scrollHeight;
   }, []);
+
   const renderChat = () => {
-    console.log(logs);
+    // console.log(logs);
     return logs.map((log, index) => {
       return (
-        <div className='chat-msg' key={index}>
-          <div className="log_inline cm-msg-text" >
+        <div className={`chat-msg ${log.senderId === user.id ? 'me' : 'other'}`} key={index}>
+          <div className="log_inline cm-msg-text">
             <span>{log.message}</span>
           </div>
           <br />
@@ -66,23 +68,24 @@ function Chat(props) {
         </div>
         <div className="chat-box">
           <div className="chat-box-header">
-            <span>Hi,Nguyễn Đình Khoa</span>
+            <span>Hi , {user.name}</span>
             <span className="chat-box-toggle">
               <CancelIcon />
             </span>
           </div>
           <div className="chat-box-body">
             <div className="chat-box-overlay" />
-            <div className="chat-logs">{renderChat()}</div>
+            <div className="chat-logs" id="main-chat-logs">
+              {renderChat()}
+            </div>
           </div>
           <div className="chat-input">
-            <form onSubmit={onEnterChat}>
+            <form onSubmit={handleSubmit(onEnterChat)}>
               <input
                 type="text"
                 id="chat-input"
+                ref={register}
                 name="message"
-                value={newMessage}
-                onChange={(e) => onChangeText(e)}
                 placeholder="Send a message..."
               />
               <button type="submit" className="chat-submit" id="chat-submit">

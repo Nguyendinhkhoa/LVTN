@@ -451,8 +451,8 @@ function DetailProduct(props) {
                           alt="hero_img"
                         />
   
-                        <div class="product-info">
-                          <h2 class="product-title">
+                        <div className="product-info">
+                          <h2 className="product-title">
                             <a href="product-details.html">
                              {item.name}
                             </a>

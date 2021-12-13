@@ -6,9 +6,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import SendIcon from '@material-ui/icons/Send';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
-
 const socket = io('http://teamedicine.tk:3000');
-
 function Chat(props) {
   const [logs, setLogs] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -25,36 +23,36 @@ function Chat(props) {
     e.preventDefault();
     let mess = newMessage;
     socket.emit('chat_text', {
-      roomId:user.id,
+      roomId: user.id,
       senderId: user.id,
       roomName: 'Khoa Đẹp Trai',
       message: mess,
     });
-    setLogs([...logs, { userId : user.id, message: mess }]);
+    setLogs([...logs, { userId: user.id, message: mess }]);
     mess = ' ';
     setNewMessage(mess);
   };
 
   useEffect(() => {
-    // ON: recieve message -> set state
     socket.on('res_chat_text', (res) => {
-      console.log(res.message);
-      setLogs([...logs, { name: res.roomName, message: res.message }]);
+      console.log(res);
+      // setLogs([...logs, { name: res.roomName, message: res.message }]);
     });
-  });
+  }, []);
   const renderChat = () => {
     console.log(logs);
     return logs.map((log, index) => {
       return (
-        <>
-          <div className="log_inline" key={index}>
-            <span> {log.message}</span>
+        <div className='chat-msg' key={index}>
+          <div className="log_inline cm-msg-text" >
+            <span>{log.message}</span>
           </div>
           <br />
-        </>
+        </div>
       );
     });
   };
+
   const onChangeText = (e) => {
     e.preventDefault();
     setNewMessage(e.target.value);
@@ -64,7 +62,7 @@ function Chat(props) {
       <div id="body">
         <div id="chat-circle" className="btn btn-raised">
           <div id="chat-overlay" />
-          <ChatIcon/>
+          <ChatIcon />
         </div>
         <div className="chat-box">
           <div className="chat-box-header">

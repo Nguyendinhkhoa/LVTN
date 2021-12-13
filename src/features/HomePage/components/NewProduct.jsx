@@ -7,7 +7,6 @@ NewProduct.propTypes = {
 };
 
 function NewProduct({ listProduct }) {
-  console.log(listProduct);
   return (
     <>    
       {listProduct.map((product, index) => {

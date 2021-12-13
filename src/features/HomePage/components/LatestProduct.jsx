@@ -15,7 +15,6 @@ function LatestProduct(props) {
     const fecthProduct = async () => {
       const productList = await productApi.getAll(params);
       const arrProduct = productList.results;
-      console.log(arrProduct);
       setListProduct(arrProduct);
     };
     fecthProduct();

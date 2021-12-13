@@ -6,6 +6,7 @@ import './style.css';
 import CustomizedSteppers from './Stepper/CustomizedSteppers';
 import CancelOrder from './Stepper/CancelOrder';
 import Loading from '../Loading';
+import { useSnackbar } from 'notistack';
 
 function ViewOder(props) {
   const orderId = props.match.params.orderId;
@@ -13,7 +14,8 @@ function ViewOder(props) {
   const [orderCancel, setOrderCancel] = useState(false);
   const [orderStatus1, setOrderStatus] = useState(0);
   const [cartSubtotal, setCartSubtotal] = useState(0);
-  const [loading,setLoading] = useState(1);
+  const [loading, setLoading] = useState(1);
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     setLoading(1);
     try {
@@ -24,41 +26,50 @@ function ViewOder(props) {
         const order = await orderApi.getOderById(params);
         setOrder(order);
         console.log(order);
-        if(order.orderStatus === 'Unconfirm'){
+        if (order.orderStatus === 'Canceled') {
           setOrderCancel(true);
         }
-        switch(order.orderStatus){
-          case "Unconfirm" : 
-          setOrderStatus(0);
-          break;
-          case "Confirm" : 
-          setOrderStatus(1);
-          break;
-          case "Shipping" : 
-          setOrderStatus(2);
-          break;
-          case "Complete" : 
-          setOrderStatus(3);
-          break;
+        switch (order.orderStatus) {
+          case 'Unconfirm':
+            setOrderStatus(0);
+            break;
+          case 'Confirm':
+            setOrderStatus(1);
+            break;
+          case 'Shipping':
+            setOrderStatus(2);
+            break;
+          case 'Complete':
+            setOrderStatus(3);
+            break;
         }
-        let initialValue=0;
+        let initialValue = 0;
         let sum = order.listCart.reduce(function (previousValue, currentValue) {
           return previousValue + currentValue.priceTotal;
         }, initialValue);
         setCartSubtotal(sum);
-              setLoading(0);
+        setLoading(0);
       };
       fecthOrder();
-
     } catch (error) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
-
   }, [orderStatus1]);
-  if(loading === 1) return <Loading/>
+  const handleCancel = async () => {
+    try {
+      const cancel = await orderApi.cancelOrder({orderId : orderId}  );
+      console.log(cancel);
+      enqueueSnackbar(`Cancel Order successfully!`, {
+        variant: 'success',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setOrderCancel(true);
+  };
+  if (loading === 1) return <Loading />;
   return (
     <div>
-      <button onClick={() => setOrderStatus(2)}>Click me</button>
       <SlideInProduct page="Order Detail" />
       <div className="order-detail">
         <div className="container">
@@ -66,7 +77,7 @@ function ViewOder(props) {
             <div className="info-id">
               <span>ORDER ID : {orderId}</span>
               <span style={{ margin: '0 5px' }}> |</span>
-              <span className="order-completed-status">Order Completed</span>
+              <span className="order-completed-status">{order.orderStatus}</span>
             </div>
           </div>
           <div className="_1J7vLy">
@@ -76,7 +87,6 @@ function ViewOder(props) {
           <div className="row">
             <div className="order-tracking">
               {orderCancel === true ? (
-            
                 <CancelOrder activeSteps={1} />
               ) : (
                 <CustomizedSteppers activeSteps={orderStatus1} />
@@ -183,6 +193,16 @@ function ViewOder(props) {
                   </tr>
                 </tfoot>
               </table>
+              {orderStatus1 === 0&& orderCancel===false && (
+                <div className="cancel-button">
+                  <button
+                    onClick={handleCancel}
+                    className="btn-cancel theme-btn-1 btn btn-effect-1"
+                  >
+                    Cancel Order
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

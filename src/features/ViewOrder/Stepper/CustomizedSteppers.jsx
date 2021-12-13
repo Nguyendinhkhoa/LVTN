@@ -181,7 +181,6 @@ export default function CustomizedSteppers(props) {
   useEffect(()=>{
     setActiveStep(props.activeSteps);
   },[props.activeSteps])
-  console.log('co',props.activeSteps);
   return (
     <div className={classes.root}>
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>

@@ -18,7 +18,7 @@ function Product({product}) {
                     </Box>
                     <div className="product-info">
 
-                      <h2 className="product-title"><a href="product-details.html">{product.name}</a></h2>
+                      <h2 className="product-title"> <Link to={`/product-detail/${product.slug}`}>{product.name}</Link></h2>
                       <div className="product-price">
                         <span>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}₫</span>
                         <del>$162.000 ₫</del>

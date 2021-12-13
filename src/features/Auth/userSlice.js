@@ -13,6 +13,7 @@ export const login = createAsyncThunk('users/login', async (payload) => {
   localStorage.setItem('access_token', JSON.stringify(data.tokens.access.token));
   localStorage.setItem('countCarts', JSON.stringify(data.countCarts));
   localStorage.setItem('user', JSON.stringify(data.user));
+  window.location.reload();
   return data.user;
 });
 export const test = createAsyncThunk('users/test', async () => {

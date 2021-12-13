@@ -24,11 +24,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Chat from './components/Chat';
 function App() {
-
+  const user = JSON.parse(localStorage.getItem('user')) ?JSON.parse(localStorage.getItem('user')) : "";
   return (
     <div className="App">
-      <Chat/>
-
+      {user ?<Chat/> : <></>}
       <Header />
       <Switch>
         <Redirect from="/home" to="/" />

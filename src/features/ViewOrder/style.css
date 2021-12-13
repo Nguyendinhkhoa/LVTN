@@ -139,3 +139,11 @@
   color: #0a9a73;
   text-transform: uppercase;
 }
+.cancel-button{
+  display: flex;
+  float: right;
+  padding: 10px;
+}
+.btn-cancel{
+  align-items:flex-end;
+}

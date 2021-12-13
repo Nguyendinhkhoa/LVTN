@@ -12,13 +12,11 @@ const socket = io('http://teamedicine.tk:3000');
 function Chat(props) {
   const [logs, setLogs] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const userId = JSON.parse(localStorage.getItem('user')).id;
+  const user = JSON.parse(localStorage.getItem('user'));
 
   // CONNECT: ket noi server chat
   socket.on('connect', () => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-    // JOIN ROOM: vao room -> anhkhoa dang online, da vao chat
-    socket.emit('join_room', { roomId: 'anhkhoa' });
+    socket.emit('join_room', { roomId: user.id });
   });
 
   // Gui chat len server
@@ -27,11 +25,12 @@ function Chat(props) {
     e.preventDefault();
     let mess = newMessage;
     socket.emit('chat_text', {
-      roomId: 'anhkhoa',
-      senderId: 'anhkhoa',
-      roomName: 'Anh Khoa',
+      roomId:user.id,
+      senderId: user.id,
+      roomName: 'Khoa Đẹp Trai',
       message: mess,
     });
+    setLogs([...logs, { userId : user.id, message: mess }]);
     mess = ' ';
     setNewMessage(mess);
   };
@@ -49,7 +48,6 @@ function Chat(props) {
       return (
         <>
           <div className="log_inline" key={index}>
-            <span>{log.name}</span> - 
             <span> {log.message}</span>
           </div>
           <br />
@@ -66,7 +64,7 @@ function Chat(props) {
       <div id="body">
         <div id="chat-circle" className="btn btn-raised">
           <div id="chat-overlay" />
-          <ChatIcon />
+          <ChatIcon/>
         </div>
         <div className="chat-box">
           <div className="chat-box-header">

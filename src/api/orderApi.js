@@ -13,6 +13,10 @@ const orderApi = {
     getOderById(params){
         const url="/api/v1/orders/get-order";
         return axiosClient.get(url,{params});
+    },
+    cancelOrder(data){
+        const url="/api/v1/orders/cancel-order";
+        return axiosClient.post(url,data);
     }
 
 

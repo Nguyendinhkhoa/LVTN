@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.css';
 import ChatIcon from '@material-ui/icons/Chat';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -25,19 +25,28 @@ function Chat(props) {
       message: mess,
     });
     setLogs([...logs, { senderId: user.id, message: mess }]);
-    reset({
-      message: '',
-    });
+    reset();
     var objDiv = document.getElementById('main-chat-logs');
     objDiv.scrollTop = objDiv.scrollHeight;
   };
 
-  socket.on('res_chat_text', (res) => {
+  socket.on('res_chat_text',(res) => {
+    console.log(res);
     setLogs([...logs, { senderId: res.senderId, message: res.message }]);
     var objDiv = document.getElementById('main-chat-logs');
     objDiv.scrollTop = objDiv.scrollHeight;
   });
 
+  const renderChat = () => {
+    return logs.map((log, index) => (
+      <div className={`chat-msg ${log.senderId === user.id ? 'me' : 'other'}`} key={index}>
+        <div className="log_inline cm-msg-text">
+          <span>{log.message}</span>
+        </div>
+        <br />
+      </div>
+    ));
+  };
   return (
     <>
       <div id="body">
@@ -55,19 +64,7 @@ function Chat(props) {
           <div className="chat-box-body">
             <div className="chat-box-overlay" />
             <div className="chat-logs" id="main-chat-logs">
-              {logs.map((log, index) => {
-                return (
-                  <div
-                    className={`chat-msg ${log.senderId === user.id ? 'me' : 'other'}`}
-                    key={index}
-                  >
-                    <div className="log_inline cm-msg-text">
-                      <span>{log.message}</span>
-                    </div>
-                    <br />
-                  </div>
-                );
-              })}
+              {renderChat()}
             </div>
           </div>
           <div className="chat-input">

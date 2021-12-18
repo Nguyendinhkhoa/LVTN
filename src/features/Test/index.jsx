@@ -1,7 +1,5 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
-import { Box } from '@material-ui/core';
 import './test.scss';
 function Test(props) {
   const settings = {

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import './style.css';
 import ChatIcon from '@material-ui/icons/Chat';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -11,7 +10,7 @@ const socket = io('http://teamedicine.tk:3000');
 function Chat(props) {
   const [logs, setLogs] = useState([]);
   const { handleSubmit, register, reset } = useForm();
-  const [newMessage, setNewMessage] = useState('');
+
   const user = JSON.parse(localStorage.getItem('user'));
   socket.on('connect', () => {
     socket.emit('join_room', { room: user.id });
@@ -23,7 +22,6 @@ function Chat(props) {
     socket.emit('chat_text', {
       roomId: user.id,
       senderId: user.id,
-      roomName: 'Khoa Đẹp Trai',
       message: mess,
     });
     setLogs([...logs, { senderId: user.id, message: mess }]);
@@ -33,32 +31,13 @@ function Chat(props) {
     var objDiv = document.getElementById('main-chat-logs');
     objDiv.scrollTop = objDiv.scrollHeight;
   };
+
   socket.on('res_chat_text', (res) => {
     setLogs([...logs, { senderId: res.senderId, message: res.message }]);
-  });
-  useEffect(() => {
     var objDiv = document.getElementById('main-chat-logs');
     objDiv.scrollTop = objDiv.scrollHeight;
-  }, []);
+  });
 
-  const renderChat = () => {
-    // console.log(logs);
-    return logs.map((log, index) => {
-      return (
-        <div className={`chat-msg ${log.senderId === user.id ? 'me' : 'other'}`} key={index}>
-          <div className="log_inline cm-msg-text">
-            <span>{log.message}</span>
-          </div>
-          <br />
-        </div>
-      );
-    });
-  };
-
-  const onChangeText = (e) => {
-    e.preventDefault();
-    setNewMessage(e.target.value);
-  };
   return (
     <>
       <div id="body">
@@ -76,7 +55,19 @@ function Chat(props) {
           <div className="chat-box-body">
             <div className="chat-box-overlay" />
             <div className="chat-logs" id="main-chat-logs">
-              {renderChat()}
+              {logs.map((log, index) => {
+                return (
+                  <div
+                    className={`chat-msg ${log.senderId === user.id ? 'me' : 'other'}`}
+                    key={index}
+                  >
+                    <div className="log_inline cm-msg-text">
+                      <span>{log.message}</span>
+                    </div>
+                    <br />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="chat-input">

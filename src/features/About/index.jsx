@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './about.css';
 import aboutImg from './about.png';
 import SlideInProduct from '../Product/components/Slide';
@@ -38,12 +37,12 @@ function About(props) {
       </div>
       <div className="aboutTarget">
            <div className="targetContent">
-           <h2 class="AboutUs_ourUltimateTitle__2Rc16">Our ultimate goal is to provide affordable healthcare to one and all.</h2>
+           <h2 className="AboutUs_ourUltimateTitle__2Rc16">Our ultimate goal is to provide affordable healthcare to one and all.</h2>
            </div>
       </div>
       <div className="coreValues">
-      <h2 class="AboutUs_h2__3Re_n" id="core-values">Core Values of Medicine</h2>
-      <p class="AboutUs_descriptions__2VwCw">To further our vision and goals, we came up with the following core values. Our values are highly instrumental in deciding where we want to go and how we will get there.</p>
+      <h2 className="AboutUs_h2__3Re_n" id="core-values">Core Values of Medicine</h2>
+      <p className="AboutUs_descriptions__2VwCw">To further our vision and goals, we came up with the following core values. Our values are highly instrumental in deciding where we want to go and how we will get there.</p>
       <img src={aboutImg} alt="" />
       </div>
     </>

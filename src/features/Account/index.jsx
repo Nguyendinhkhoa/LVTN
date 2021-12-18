@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './account.css';
 import SlideInProduct from '../Product/components/Slide';
 import AccountForm from './components/AccountForm';
 import userApi from '../../api/userApi';
 import Loading from '../Loading';
-import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { changename, test } from '../Auth/userSlice';
 import { useSnackbar } from 'notistack';
 import PasswordForm from './components/PasswordForm';
 import orderApi from '../../api/orderApi';
@@ -25,13 +21,12 @@ const useStyles = makeStyles((theme) => ({
 Account.propTypes = {};
 function Account(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const [listOrder, setListOrder] = useState([]);
   const [reload, setReload] = useState(true);
   const [loading, setLoading] = useState(1);
   const login = JSON.parse(localStorage.getItem('user'));
-  const [flag, setFlag] = useState(true);
+  // const [flag, setFlag] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [params,setParams] = useState({
     page : 1,
@@ -75,36 +70,37 @@ function Account(props) {
     })();
   }, [params]);
 
-  const handleSubmitInfo = async (values) => {
-    delete values['email'];
-    try {
-      (async () => {
-        try {
-          setReload(!reload);
-          const updateUser = await userApi.update(values);
-          // console.log(,updateUser)
-          setUser(updateUser);
-          const localUser = JSON.parse(localStorage.getItem('user'));
-          localUser.name = values['name'];
-          localStorage.setItem(
-            'user',
-            JSON.stringify({
-              ...localUser,
-              name: values.name,
-              phone: values.phone,
-              address: values.address,
-            })
-          );
-          dispatch(changename(values.name));
-          enqueueSnackbar('Change infomation successful', { variant: 'success' });
-        } catch (error) {
-          console.log('fetch error', error);
-        }
-      })();
-    } catch (error) {
-      console.log('fail', error.message);
-    }
-  };
+  // const handleSubmitInfo = async (values) => {
+  //   delete values['email'];
+  //   values.avatar = '';
+  //   console.log(values);
+  //   try {
+  //     (async () => {
+  //       try {
+  //         setReload(!reload);
+  //         const updateUser = await userApi.update(values);
+  //         setUser(updateUser);
+  //         const localUser = JSON.parse(localStorage.getItem('user'));
+  //         localUser.name = values['name'];
+  //         localStorage.setItem(
+  //           'user',
+  //           JSON.stringify({
+  //             ...localUser,
+  //             name: values.name,
+  //             phone: values.phone,
+  //             address: values.address,              
+  //           })
+  //         );
+  //         dispatch(changename(values.name));
+  //         enqueueSnackbar('Change infomation successful', { variant: 'success' });
+  //       } catch (error) {
+  //         console.log('fetch error', error);
+  //       }
+  //     })();
+  //   } catch (error) {
+  //     console.log('fail', error.message);
+  //   }
+  // };
   const handleSubmitPassword = async (values) => {
     delete values['confirmPassword'];
     try {
@@ -129,8 +125,8 @@ function Account(props) {
       name: values.name,
       phone: values.phone,
       address: values.address,
+      avatar : '',
     });
-    console.log(values);
   };
   const handlePageChange = (e, page) => {
     setParams((prevFilters) => ({
@@ -163,9 +159,9 @@ function Account(props) {
                           <a data-bs-toggle="tab" href="#liton_tab_1_4">
                             Change Password <i className="fas fa-map-marker-alt" />
                           </a>
-                          <a>
+                          {/* <a >
                             Logout <i className="fas fa-sign-out-alt" />
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                     </div>
@@ -272,7 +268,7 @@ function Account(props) {
                               <Loading />
                             ) : (
                               <AccountForm
-                                onsubmit={handleSubmitInfo}
+                                // onsubmit={handleSubmitInfo}
                                 user={user}
                                 InfoChange={hanldeInfoChange}
                               />

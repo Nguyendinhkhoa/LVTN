@@ -3,7 +3,6 @@ import SlideInProduct from '../../components/Slide';
 import { withRouter } from 'react-router';
 import '../../style.css';
 import productApi from '../../../../api/productApi';
-import { TextField } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
 import { addtocart } from '../../productSlice';
@@ -32,7 +31,6 @@ function DetailProduct(props) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -47,12 +45,12 @@ function DetailProduct(props) {
       dispatch(action);
       setListCart(cart.results);
     };
+
     fecthCart();
-  }, [quantityAddCart]);
+  }, []);
   useEffect(()=>{
     const fecthRecommend = async()=>{
       const reProduct = await productApi.recommend({page : 0 , limit : 10});
-      console.log('recommend',reProduct.results);
       setRecommentProduct(reProduct.results);
     }
     fecthRecommend();

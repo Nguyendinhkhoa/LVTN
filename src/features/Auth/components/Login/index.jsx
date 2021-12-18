@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from '../LoginForm';
 import {useDispatch} from 'react-redux';
-import { login ,test} from '../../userSlice';
+import { login} from '../../userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useSnackbar } from 'notistack';
-import {InitCount} from '../../../Product/productSlice';
+
 
 Login.propTypes = {
     closeDialog :PropTypes.func,

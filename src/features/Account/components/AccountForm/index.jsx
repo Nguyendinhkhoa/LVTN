@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InputField from '../form-control/InputField';
 import { useForm } from 'react-hook-form';
@@ -11,14 +11,13 @@ import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { changename } from '../../../Auth/userSlice';
 AccountForm.propTypes = {
-  onsubmit: PropTypes.func.isRequired,
+  // onsubmit: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   InfoChange : PropTypes.func,
 };
 
 function AccountForm(props) {
   const { enqueueSnackbar } = useSnackbar();
-  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(0);
   const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
@@ -54,6 +53,7 @@ function AccountForm(props) {
   const handleSubmit = async (values) => {
     props.InfoChange(values);
     delete values['email'];
+    values.avatar = "";
     try {
       (async () => {
         try {
@@ -70,7 +70,7 @@ function AccountForm(props) {
             form.setValue('address', updateUser.address);
           }, 1)
           
-          setUser(updateUser);
+
           const localUser = JSON.parse(localStorage.getItem('user'));
           localUser.name = values['name'];
           localStorage.setItem(

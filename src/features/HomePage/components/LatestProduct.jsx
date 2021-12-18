@@ -13,10 +13,13 @@ function LatestProduct(props) {
   })
   useEffect(() => {
     const fecthProduct = async () => {
-      const productList = await productApi.getAll(params);
-      const arrProduct = productList.results;
-      setListProduct(arrProduct);
+      // const productList = await productApi.getAll(params);
+      // const arrProduct = productList.results;
+      const homeProduct = await productApi.homeProduct();
+      console.log(homeProduct);
+      // setListProduct(arrProduct);
     };
+    // homeProduct();
     fecthProduct();
   }, []);
   return (

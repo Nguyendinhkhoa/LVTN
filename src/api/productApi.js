@@ -32,7 +32,12 @@ const productApi = {
     remove(id){
         const url = `/products/${id}`;
         return axiosClient.delete(url,id);
+    },
+    homeProduct(){
+        const url = 'api/v1/products/home-page';
+        return axiosClient.get(url);
     }
+    
 
 
 };

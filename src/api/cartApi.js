@@ -12,11 +12,14 @@ const cartApi = {
     },
 
     deleteCart(data) {
-        const url = 'api/v1/carts/delete-cart' + '?CartId=' + data
-        return axiosClient.delete(url)
+        let temp = 'api/v1/carts/delete-cart?CartId=';
+        const url = temp.concat(data)
+        console.log(url);
+        return axiosClient.delete(url);
     },
     updateQuantity(data,params){
-        const url = 'api/v1/carts/update-cart'+'?CartId='+params;
+        let temp = 'api/v1/carts/update-cart?CartId=';
+        const url = temp.concat(params)
         return axiosClient.put(url,data)
     }
 

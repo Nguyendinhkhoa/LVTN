@@ -16,7 +16,6 @@ function Cart(props) {
   const [Cart, setCart] = useState([]);
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [loading, setLoading] = useState(1);
-  const [listUpdate, setListUpdate] = useState([]);
   const [reload, setReload] = useState(false);
   const user = useSelector((state) => state.user.current);
   const { enqueueSnackbar } = useSnackbar();

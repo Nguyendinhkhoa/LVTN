@@ -42,6 +42,8 @@ function ViewOder(props) {
           case 'Complete':
             setOrderStatus(3);
             break;
+            default:
+              setOrderStatus(0);
         }
         let initialValue = 0;
         let sum = order.listCart.reduce(function (previousValue, currentValue) {

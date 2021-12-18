@@ -12,10 +12,8 @@ import DetailProduct from './features/Product/pages/DetailProduct/DetailProduct'
 import Login from './features/Login/Login';
 import Register from './features/Auth/components/Register';
 import Cart from './features/Cart';
-import TextField from '@material-ui/core/TextField';
 import Test from './features/Test';
 import Search from './features/Search';
-import ScrollTop from './components/ScrollTop';
 import Account from './features/Account';
 import Order from './features/Order';
 import About from './features/About';

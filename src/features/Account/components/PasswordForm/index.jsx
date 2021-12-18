@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import InputField from '../form-control/InputField';
+
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '@material-ui/core';
-import userApi from '../../../../api/userApi';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import Loading from '../../../Loading';
-import test from '.././../../Auth/userSlice';
-import { unwrapResult } from '@reduxjs/toolkit';
 import PasswordField from '../form-control/PasswordField';
 
 PasswordForm.propTypes = {

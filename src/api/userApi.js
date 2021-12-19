@@ -20,6 +20,10 @@ const userApi = {
     updatePassword(data){
         const url = "/api/v1/users/update-password"
         return axiosClient.put(url,data);
+    },
+    forgotPass(data){
+        const url="/api/v1/auth/forgot-password"
+        return axiosClient.post(url,data);
     }
 
 

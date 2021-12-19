@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -34,7 +33,7 @@ function PasswordForm(props) {
     .required('Please retype your password')
     .oneOf([yup.ref('password')], 'Password does not match'),
   });
-  const form= useForm({
+  const form = useForm({
     defaultValues: {
       oldPassword: "" ,
       password:"",

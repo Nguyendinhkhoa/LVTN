@@ -55,6 +55,9 @@ function DetailProduct(props) {
     }
     fecthRecommend();
   },[])
+  function unescapeHTML(escapedHTML) {
+    return escapedHTML.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+  }
   useEffect(() => {
     try {
       const fecthProduct = async () => {
@@ -62,7 +65,9 @@ function DetailProduct(props) {
           slug,
         };
         const product = await productApi.get(params);
-        console.log('product detail : ', product);
+        const test = unescapeHTML(product.description)
+        console.log('product detail : ',  product);
+        product.description = test ;
         SetProduct(product);
         setLoading(0);
         if (product.inventoryQty === 0) {
@@ -270,7 +275,8 @@ function DetailProduct(props) {
                         {/* <div  > */}
 
                         <div className="ltn__shop-details-tab-content-inner">
-                          {product.description}
+                          <div dangerouslySetInnerHTML={{__html: product.description}}></div>
+                          
                         </div>
 
                         {/* </div> */}

@@ -1,0 +1,145 @@
+.forgotpass {
+  min-height: 600px;
+  margin: 0 auto;
+  width: 1200px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.fogot-content {
+  background-color: #fff;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px 0 rgb(0 0 0 / 14%);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  width: 31.25rem;
+  min-height: 17.1875rem;
+}
+.Xqnqjs {
+  box-sizing: border-box;
+  min-height: 5rem;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+._3qVJYR {
+  box-sizing: content-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+._6naxFx {
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.yGpYhu {
+  fill: #ee4d2d;
+  width: 1.5rem;
+  height: 1.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  padding-top: 0.25rem;
+  overflow: hidden;
+}
+._36wKwh {
+  display: flex;
+  justify-content: center;
+}
+._3p_roN {
+  flex: 1;
+  font-size: 1.5rem;
+  color: #222;
+  padding-right: 3rem;
+  max-width: calc(100% - 5rem);
+}
+
+.ZWZ4ab {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+._3e4zDA._2kpMlA {
+  padding: 0 3rem 4rem;
+  overflow: hidden;
+}
+.h4yPIu {
+  margin: 1.25rem auto 0.3125rem;
+  margin-bottom: 10px;
+}
+._3Nrkgj:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+._1IRuK_ {
+  width: 100%;
+}
+._3_offS {
+  color: #fff;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 9%);
+  background-color: #ee4d2d;
+}
+._3kANJY {
+  text-transform: uppercase;
+}
+.hh2rFL {
+  height: 2.5rem;
+  min-width: 8.75rem;
+}
+._3Nrkgj {
+  outline: none;
+  padding: 0 0.625rem;
+  border: 0;
+  border-radius: 0.125rem;
+}
+._1ruZ5a,
+.hh2rFL {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.jWssEL {
+  min-height: 12.5rem;
+}
+._34gSQ- {
+  background-color: #fff;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px 0 rgb(0 0 0 / 14%);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  width: 31.25rem;
+}
+._3f_d49 {
+  margin-top: 1.25rem;
+  justify-content: center;
+  display: flex;
+}
+.stardust-icon {
+  stroke: currentColor;
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+}
+._39cto- {
+  height: 3.125rem;
+  width: 5rem;
+  color: rgba(0, 0, 0, 0.87);
+}
+._2rSmEY {
+  margin: 1.5625rem auto 3.125rem;
+  font-size: 20px;
+  text-align: center;
+}
+._25142T {
+  color: #ee4d2d;
+}
+

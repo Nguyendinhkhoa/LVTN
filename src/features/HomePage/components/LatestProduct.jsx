@@ -21,7 +21,7 @@ function LatestProduct(props) {
   }, []);
   return (
     <>
-      <div className=" ltn__product-gutter  no-product-ratting pt-85 pb-70">
+      <div className=" ltn__product-gutter  no-product-ratting pt-85">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">

@@ -15,10 +15,12 @@ import banner2 from './images/banner2.jpg';
 import banner3 from './images/banner3.jpg';
 import LatestProduct from './components/LatestProduct';
 import ScrollTop from '../../components/ScrollTop';
+import RecommendProduct from './components/RecommendProduct';
+import productApi from '../../api/productApi';
 
 function HomePage(props) {
-
   const [listCate, SetlistCate] = useState([]);
+  const [reProduct, setReProduct] = useState([]);
   useEffect(() => {
     const fecthCategory = async () => {
       const categoryList = await categoryApi.getAll();
@@ -28,7 +30,14 @@ function HomePage(props) {
 
     fecthCategory();
   }, []);
-
+  useEffect(() => {
+    const fecthReProduct = async () => {
+      const productList = await productApi.homeProduct();
+      console.log(productList,"product list recom");
+      setReProduct(productList);
+    };
+    fecthReProduct();
+  }, []);
   return (
     <>
       <ScrollTop/>
@@ -241,6 +250,15 @@ function HomePage(props) {
         </div>
       </div>
       <LatestProduct />
+      {reProduct && reProduct.map((item,ind)=>{
+        console.log(item.listProducts.length);
+        if(item.listProducts.length >0){
+          return <RecommendProduct amout={item.listProducts.length } reProduct={item.listProducts} title={item.name} key={ind}/> ;
+        }
+        else{
+          return;
+        }
+      })}
     </>
   );
 }

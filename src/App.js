@@ -21,6 +21,8 @@ import ViewOder from './features/ViewOrder';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Chat from './components/Chat';
+import Contact from './features/Contact';
+import ForgotPassword from './features/ForgotPassword';
 function App() {
   const user = JSON.parse(localStorage.getItem('user')) ?JSON.parse(localStorage.getItem('user')) : "";
   return (
@@ -42,6 +44,8 @@ function App() {
         <Route path="/account" component={Account} exact></Route>
         <Route path="/order" component={Order}></Route>
         <Route path="/about" component={About}></Route>
+        <Route path="/contact" component={Contact}></Route>
+        <Route path="/forgot-password" component={ForgotPassword}></Route>
         <Route path="/account/view-order/:orderId" component={ViewOder}></Route>
         <Route component={NotFound}></Route>
       </Switch>

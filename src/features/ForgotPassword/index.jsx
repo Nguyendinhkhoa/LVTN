@@ -13,6 +13,7 @@ function ForgotPassword(props) {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(false);
+  const [errorEmail,setErrorEmail] = useState(false);
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -27,15 +28,16 @@ function ForgotPassword(props) {
   });
   const handleSubmit1 = async (values) => {
     console.log(values);
-    try {
-      (async () => {
-        const fetch = await userApi.forgotPass(values);
-      })();
-    } catch (error) {
-      console.log(error);
-    }
-    setEmail(values.email);
-    setStatus(true);
+
+    (async () => {
+      try {
+        await userApi.forgotPass(values);
+        setEmail(values.email);
+        setStatus(true);
+      } catch (error) {
+        setErrorEmail(true);
+      }
+    })();
   };
   const okButton = () => {
     history.push('/');
@@ -133,7 +135,49 @@ function ForgotPassword(props) {
                 </div>
               </div>
               <div className="_3e4zDA _2kpMlA">
-                <div />
+                <div>
+                  {errorEmail ? (
+                    <div className="_7Ao-BQ umTGIP">
+                      <div className="o5DLud">
+                        <svg
+                          viewBox="0 0 16 16"
+                          role="img"
+                          className="stardust-icon stardust-icon-cross-with-circle _2-4Lck"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#FF424F"
+                            d="M8 15A7 7 0 108 1a7 7 0 000 14z"
+                            clipRule="evenodd"
+                          />
+                          <rect
+                            stroke="none"
+                            width={7}
+                            height="1.5"
+                            x="6.061"
+                            y={5}
+                            fill="#FF424F"
+                            rx=".75"
+                            transform="rotate(45 6.06 5)"
+                          />
+                          <rect
+                            stroke="none"
+                            width={7}
+                            height="1.5"
+                            fill="#FF424F"
+                            rx=".75"
+                            transform="scale(-1 1) rotate(45 -11.01 -9.51)"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="_3mi2mp">Account not found</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
                 <div className="h4yPIu">
                   <div className="_3mizNj">
                     <EmailField name="email" form={form} />

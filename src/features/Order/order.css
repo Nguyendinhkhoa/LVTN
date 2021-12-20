@@ -179,7 +179,6 @@
 .info-address .content-info-address .info-address-inline {
   display: flex;
   align-items: center;
-
 }
 .info-address .content-info-address .info-address-inline .user-info {
   display: flex;
@@ -277,7 +276,7 @@
   font-size: 14px;
   color: #222;
   min-height: 55px;
-  border-bottom: 1px dashed rgba(0,0,0,.09);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.09);
 }
 .product-in-cart .cart-content .product .information-product {
   flex: 2;
@@ -325,17 +324,17 @@
   justify-content: flex-end;
   align-items: center;
 }
-.form-dialog-title{
-  color: black!important;
+.form-dialog-title {
+  color: black !important;
 }
-.MuiTypography-h6{
+.MuiTypography-h6 {
   color: #111;
 }
 .shoping-cart-total1 {
   padding: 15px;
   background-color: #fff;
 }
-.shoping-cart-total .btn-wrapper{
+.shoping-cart-total .btn-wrapper {
   margin-top: 10px;
   display: block;
 }
@@ -376,4 +375,39 @@
 .Nbknf tbody tr td .product-item .product-info .product-name {
   font-size: 14px;
   color: rgb(36, 36, 36);
+}
+.checkout-page {
+  margin-top: 80px;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 200px;
+}
+.checkout-page h1 {
+  color: black;
+  margin-bottom: 10px;
+
+}
+.checkout-page .order-number {
+  background: #0A9A73 ;
+  font-size: 19px;
+  color: rgb(255, 255, 255);
+  border: none;
+  text-align: center;
+  font-weight: 400;
+  position: relative;
+  border-radius: 0px;
+  width: 200px;
+  margin-bottom: 10px;
+  padding: 9px;
+  box-shadow: rgb(0 0 0 / 5%) 0px 1px 1px inset;
+}
+.notice-message {
+  color: rgb(253, 130, 8);
+  line-height: 20px;
+  font-size: 20px;
+}
+.info-order-success{
+  font-size: 22px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: black;
 }

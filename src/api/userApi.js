@@ -24,6 +24,11 @@ const userApi = {
     forgotPass(data){
         const url="/api/v1/auth/forgot-password"
         return axiosClient.post(url,data);
+    },
+    resetPass(data,params){
+        let temp = '/api/v1/auth/reset-password?token=';
+        const url = temp.concat(params)
+        return axiosClient.post(url,data)
     }
 
 

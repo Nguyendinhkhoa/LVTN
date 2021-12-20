@@ -108,7 +108,8 @@ function Order(props) {
           const placeOrder = await orderApi.createOder(order);
           localStorage.setItem('countCarts', 0);
           console.log('order nè', placeOrder);
-          // enqueueSnackbar('Change infomation successful', { variant: 'success' });
+          history.push(`/OrderSuccess?orderId=${placeOrder.id}`);
+          
         } catch (error) {
           console.log('fetch error', error);
         }

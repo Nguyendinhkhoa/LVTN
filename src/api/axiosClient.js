@@ -43,6 +43,9 @@ axiosClient.interceptors.response.use(function (response) {
       if(config.url === "/api/v1/users/update-password" && status===401){
         throw new  Error(data.message);
       }
+      if(config.url.indexOf("/api/v1/auth/reset-password") !== -1 && status===401){
+        throw new  Error(data.message);
+      }
       return Promise.reject(error);
     }
     return Promise.reject(error);

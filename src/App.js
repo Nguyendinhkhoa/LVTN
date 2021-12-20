@@ -23,6 +23,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import Chat from './components/Chat';
 import Contact from './features/Contact';
 import ForgotPassword from './features/ForgotPassword';
+import ResetPassword from './features/ResetPassword';
+import SuccessOrder from './features/Order/components/SuccessOrder';
 function App() {
   const user = JSON.parse(localStorage.getItem('user')) ?JSON.parse(localStorage.getItem('user')) : "";
   return (
@@ -46,6 +48,8 @@ function App() {
         <Route path="/about" component={About}></Route>
         <Route path="/contact" component={Contact}></Route>
         <Route path="/forgot-password" component={ForgotPassword}></Route>
+        <Route path="/reset-password" component={ResetPassword}></Route>
+        <Route path="/OrderSuccess" component={SuccessOrder}></Route>
         <Route path="/account/view-order/:orderId" component={ViewOder}></Route>
         <Route component={NotFound}></Route>
       </Switch>

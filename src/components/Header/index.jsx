@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { Link, NavLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -26,7 +26,7 @@ function Header(props) {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [anchorEl, SetAnchoEl] = useState(null);
-  const [search, SetSeacrh]=useState('');
+  const [search, SetSeacrh] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
   const handleClickOpen = () => {
@@ -54,32 +54,31 @@ function Header(props) {
     history.push('/account');
     SetAnchoEl(null);
   };
-  const handleSearchInput = (event)=>{
+  const handleSearchInput = (event) => {
     SetSeacrh(event.target.value);
-  }
-  const handleSubmit = async (event)=>{
+  };
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(search===''){
+    if (search === '') {
       enqueueSnackbar(`Please enter search keyword`, {
         variant: 'error',
       });
     }
     const params = {
-      limit :10 ,
-      page :0 ,
+      limit: 10,
+      page: 0,
       sortBy: '-createdAt',
-      search : search,
-    }
-    try{
-    const action = searchProduct(params);
-    const resuftAction = await dispatch(action);
-    unwrapResult(resuftAction);
-    history.push("/search");
-    }
-    catch(error){
+      search: search,
+    };
+    try {
+      const action = searchProduct(params);
+      const resuftAction = await dispatch(action);
+      unwrapResult(resuftAction);
+      history.push('/search');
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
     <>
       <Dialog
@@ -109,6 +108,9 @@ function Header(props) {
                   <Button onClick={() => setMode(MODE.REGISTER)}>
                     Already have an account? Register here
                   </Button>
+                  <div className="forgot">
+                    <span>forgot password</span>
+                  </div>
                 </Grid>
               </Grid>
             </>
@@ -139,7 +141,7 @@ function Header(props) {
         <MenuItem onClick={handelAccount}>My account</MenuItem>
         <MenuItem onClick={hanldeLogoutClick}>Logout</MenuItem>
       </Menu>
-      
+
       <header className="ltn__header-area ltn__header-3">
         <div className="ltn__header-top-area border-bottom">
           <div className="container">
@@ -179,7 +181,6 @@ function Header(props) {
                             )}
                             {isLoggedIn && (
                               <>
-                                
                                 <li>
                                   <span onClick={hanldeUserClick}>
                                     <i className="far fa-user me-3"></i>
@@ -225,8 +226,13 @@ function Header(props) {
                   </div>
 
                   <div className="header-search-2">
-                    <form  onSubmit={handleSubmit}>
-                      <input onChange={handleSearchInput} type="text" name="search" placeholder="Search here..." />
+                    <form onSubmit={handleSubmit}>
+                      <input
+                        onChange={handleSearchInput}
+                        type="text"
+                        name="search"
+                        placeholder="Search here..."
+                      />
                       <button type="submit">
                         <span>
                           <i className="fas fa-search"></i>
@@ -319,7 +325,7 @@ function Header(props) {
                       <sup>{isLoggedIn ? countCarts : 0}</sup>
                     </span>
                     <h6>
-                      <span >Your Cart</span>
+                      <span>Your Cart</span>
                     </h6>
                   </Link>
                 </div>

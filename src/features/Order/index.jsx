@@ -16,6 +16,7 @@ import { useHistory } from 'react-router';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useDispatch } from 'react-redux';
 import { setCoutCarts } from '../Auth/userSlice';
+import { useSnackbar } from 'notistack';
 Order.propTypes = {};
 function Order(props) {
   const [cart, setCart] = useState([]);
@@ -23,6 +24,8 @@ function Order(props) {
   const [userInfo, setUserInfo] = useState({});
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [show, setShow] = useState(false);
+  const [infoChange, setInfoChange] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -54,12 +57,13 @@ function Order(props) {
     } catch (error) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
-  },[]);
+  }, []);
   useEffect(() => {
     const fecthUser = async () => {
       const UserRes = await userApi.info();
       if (!UserRes.phone || !UserRes.address) {
         console.log('no info');
+        setInfoChange(true);
         setShow(true);
       }
       setUserInfo(UserRes);
@@ -93,32 +97,38 @@ function Order(props) {
       phone: values.phoneNumber,
       address: values.addressDelivery,
     });
+    setInfoChange(false);
     handleClose();
   };
   const handleSubmitOrder = () => {
-    const order = {
-      receiverName: userInfo.name,
-      phoneNumber: userInfo.phone,
-      addressDelivery: userInfo.address,
-      cartIds: cartId,
-    };
-    try {
-      (async () => {
-        try {
-          const placeOrder = await orderApi.createOder(order);
-          localStorage.setItem('countCarts', 0);
-          console.log('order nè', placeOrder);
-          history.push(`/OrderSuccess?orderId=${placeOrder.id}`);
-          
-        } catch (error) {
-          console.log('fetch error', error);
-        }
-      })();
-      dispatch(setCoutCarts());
-    } catch (error) {
-      console.log('fail', error.message);
+    if (!userInfo.phone || !userInfo.name) {
+      enqueueSnackbar(`Please enter all information when ordering`, {
+        variant: 'error',
+      });
+    } else {
+      const order = {
+        receiverName: userInfo.name,
+        phoneNumber: userInfo.phone,
+        addressDelivery: userInfo.address,
+        cartIds: cartId,
+      };
+      try {
+        (async () => {
+          try {
+            const placeOrder = await orderApi.createOder(order);
+            localStorage.setItem('countCarts', 0);
+            console.log('order nè', placeOrder);
+            history.push(`/OrderSuccess?orderId=${placeOrder.id}`);
+          } catch (error) {
+            console.log('fetch error', error);
+          }
+        })();
+        dispatch(setCoutCarts());
+      } catch (error) {
+        console.log('fail', error.message);
+      }
+      console.log(order);
     }
-    console.log(order);
   };
   const handleClickOpen = () => {
     setShow(true);
@@ -126,9 +136,6 @@ function Order(props) {
 
   const handleClose = () => {
     setShow(false);
-    if (!userInfo.phone || !userInfo.address) {
-      history.push('/cart');
-    }
   };
   return (
     <>

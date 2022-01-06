@@ -12,7 +12,6 @@ import DetailProduct from './features/Product/pages/DetailProduct/DetailProduct'
 import Login from './features/Login/Login';
 import Register from './features/Auth/components/Register';
 import Cart from './features/Cart';
-import Test from './features/Test';
 import Search from './features/Search';
 import Account from './features/Account';
 import Order from './features/Order';
@@ -41,7 +40,6 @@ function App() {
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/cart" component={Cart}></Route>
-        <Route path="/test" component={Test}></Route>
         <Route path="/search" component={Search}></Route>
         <Route path="/account" component={Account} exact></Route>
         <Route path="/order" component={Order}></Route>

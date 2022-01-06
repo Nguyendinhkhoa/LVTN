@@ -66,7 +66,7 @@ function Footer(props) {
                       </li>
                       <li>
                         
-                        <Link to="/product">All Products</Link>
+                        <Link to="/products">All Products</Link>
                       </li>
                       <li>
                         <Link to="/contact">Contact us</Link>

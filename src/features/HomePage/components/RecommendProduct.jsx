@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
+import './style.scss';
 const RecommendProduct = (props) => {
      const settings = {
           dots: false,
@@ -20,15 +22,15 @@ const RecommendProduct = (props) => {
           <h4>{props.title}</h4>
           <div className="slider-container">
             <Slider {...settings} className="card__container--inner">
+              
               {props.reProduct &&
                 props.reProduct.map((item, idx) => {
                   return (
                     <div className="card__container--inner--card border-recommend" key={idx}>
-                      <img src={item.image} alt="hero_img" />
-
+                      <Link to={`/product-detail/${item.slug}`}><img src={item.image} alt="hero_img" /></Link>
                       <div className="product-info">
                         <h2 className="product-title">
-                          <a href="product-details.html">{item.name}</a>
+                        <Link to={`/product-detail/${item.slug}`}>{item.name}</Link>
                         </h2>
                       </div>
                     </div>

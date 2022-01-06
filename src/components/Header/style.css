@@ -648,3 +648,12 @@
 .forgot{
   float: left;
 }
+.changeStatusLogin:hover{
+cursor: pointer;
+
+}
+.changeStatusLogin{
+cursor: pointer;
+font-size: 17px;
+font-weight: 400;
+}

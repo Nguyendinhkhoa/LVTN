@@ -44,7 +44,7 @@ function HomePage(props) {
       <div className="ltn__slider-area ltn__slider-3---  section-bg-1--- mt-30">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 ">
+            <div className="col-lg-4 ">
               {/* CATEGORY-MENU-LIST START */}
               <div className="ltn__category-menu-wrap">
                 <div className="ltn__category-menu-title">
@@ -72,7 +72,7 @@ function HomePage(props) {
               </div>
               {/* END CATEGORY-MENU-LIST */}
             </div>
-            <div className="col-lg-9">
+            <div className="col-lg-8">
               <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                   <div className="carousel-item active">

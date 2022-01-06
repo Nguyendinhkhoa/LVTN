@@ -4,7 +4,7 @@ import './style.css';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useSnackbar } from 'notistack';
 import { useHistory, useLocation } from 'react-router';
 import userApi from '../../api/userApi';
 import PasswordReset from './components/PasswordReset';
@@ -16,7 +16,8 @@ function ResetPassword(props) {
   const location = useLocation();
   const params = queryString.parse(location.search);
   console.log(params);
-  const [email, setEmail] = useState('');
+  const { enqueueSnackbar } = useSnackbar();
+  const [errorMessage,setErrorMessage] = useState(false);
   const [status, setStatus] = useState(false);
   const schema = yup.object().shape({
     password: yup
@@ -35,16 +36,22 @@ function ResetPassword(props) {
   });
   const handleSubmit1 = async (values) => {
     console.log(values);
+    setErrorMessage(false);
     (async () => {
       try {
         const fecth = await userApi.resetPass(values, params.token);
-        console.log(fecth);
+        enqueueSnackbar(`Reset Password Successfully`, {
+          variant: 'success',
+        });
+        setTimeout(() => {
+          history.push("/");
+        }, 1500);
+        
       } catch (error) {
-        console.log(error);
+        console.log('lỗi rồi nè');
+        setErrorMessage(true);
       }
     })();
-
-    setEmail(values.email);
     setStatus(true);
   };
   return (
@@ -60,11 +67,53 @@ function ResetPassword(props) {
                   </div>
                 </div>
               </div>
+              <div>
+                  {errorMessage ? (
+                    <div className="_7Ao-BQ umTGIP">
+                      <div className="o5DLud">
+                        <svg
+                          viewBox="0 0 16 16"
+                          role="img"
+                          className="stardust-icon stardust-icon-cross-with-circle _2-4Lck"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#FF424F"
+                            d="M8 15A7 7 0 108 1a7 7 0 000 14z"
+                            clipRule="evenodd"
+                          />
+                          <rect
+                            stroke="none"
+                            width={7}
+                            height="1.5"
+                            x="6.061"
+                            y={5}
+                            fill="#FF424F"
+                            rx=".75"
+                            transform="rotate(45 6.06 5)"
+                          />
+                          <rect
+                            stroke="none"
+                            width={7}
+                            height="1.5"
+                            fill="#FF424F"
+                            rx=".75"
+                            transform="scale(-1 1) rotate(45 -11.01 -9.51)"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="_3mi2mp">something is wrong, please check your mail</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               <div className="_3e4zDA _2kpMlA">
                 <div />
                 <div className="h4yPIu">
                   <div className="_3mizNj">
-                    {/* <EmailField name="email" form={form} /> */}
                     <PasswordReset name="password" form={form} />
                   </div>
                 </div>

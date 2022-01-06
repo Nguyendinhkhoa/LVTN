@@ -93,9 +93,9 @@ function Header(props) {
               <Register closeDialog={handleClose} />
               <Grid container justifyContent="flex-end">
                 <Grid item margin="normal">
-                  <Button onClick={() => setMode(MODE.LOGIN)}>
-                    Already have an account? Login here
-                  </Button>
+                  <a className='changeStatusLogin' onClick={() => setMode(MODE.LOGIN)}>
+                  Already have an account? Login here
+                  </a>
                 </Grid>
               </Grid>
             </>
@@ -105,12 +105,16 @@ function Header(props) {
               <Login closeDialog={handleClose} />
               <Grid container justifyContent="flex-end">
                 <Grid item margin="normal">
-                  <Button onClick={() => setMode(MODE.REGISTER)}>
+                  <a className='changeStatusLogin' onClick={() => setMode(MODE.REGISTER)}>
                     Already have an account? Register here
-                  </Button>
-                  <div className="forgot">
-                    <span>forgot password</span>
-                  </div>
+                  </a>
+                </Grid>
+              </Grid>
+              <Grid container justifyContent="flex-end">
+                <Grid item margin="normal">
+                  <Link className='changeStatusLogin' to={'/forgot-password'} onClick={handleClose}>
+                    Forgot password ?
+                  </Link>
                 </Grid>
               </Grid>
             </>

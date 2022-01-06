@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import SlideInProduct from '../Product/components/Slide';
 import Product from '../Product/components/Product';
 import './search.css';
-import Test from '../Test';
+import Loading from '../Loading'
+import EmptySearch from './EmptySearch';
 
 function Search(props) {
   const listSearch = useSelector((state) => state.Search.results);
@@ -17,7 +18,7 @@ function Search(props) {
   return (
     <div>
       {loading===1 ? (
-        <Test />
+        <Loading/>
       ) : (
         <>
           <SlideInProduct page="Search Results" />
@@ -29,7 +30,7 @@ function Search(props) {
                 ? listSearch.map((product, index) => {
                     return <Product product={product} key={index} />;
                   })
-                : '123'}
+                : <EmptySearch/>}
             </div>
           </div>
         </>

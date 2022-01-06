@@ -171,7 +171,7 @@ function DetailProduct(props) {
                               <li>
                                 <span>{product.content}</span>
                               </li>
-                              <li>
+                              {/* <li>
                                 <strong>Categories:</strong>
                                 <span>
                                   {product.category &&
@@ -181,7 +181,7 @@ function DetailProduct(props) {
                                       </Link>
                                     ))}
                                 </span>
-                              </li>
+                              </li> */}
                               <li>
                                 <strong>MFG:</strong>
                                 <span>{product.productionDate}</span>

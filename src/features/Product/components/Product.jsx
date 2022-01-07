@@ -20,8 +20,10 @@ function Product({product}) {
 
                       <h2 className="product-title"> <Link to={`/product-detail/${product.slug}`}>{product.name}</Link></h2>
                       <div className="product-price">
-                        <span>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}₫</span>
-                        <del>$162.000 ₫</del>
+                        <span>{product.discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}₫</span>
+                        {product.price === product.discountPrice ? <></> :
+                            <del>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</del>
+                          }
                       </div>                                                      
                     </div>
                   </div>

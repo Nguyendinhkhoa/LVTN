@@ -8,7 +8,7 @@ NewProduct.propTypes = {
 
 function NewProduct({ listProduct }) {
   return (
-    <>    
+    <>
       {listProduct.map((product, index) => {
         return (
           <div className="col-lg-3--- col-md-4 col-sm-6 col-6" key={product.id}>
@@ -28,8 +28,8 @@ function NewProduct({ listProduct }) {
                   <Link to={`/product-detail/${product.slug}`}>{product.name}</Link>
                 </h2>
                 <div className="product-price">
-                  <span>{product.price}</span>
-                  <del>$46.00</del>
+                  <span>{product.discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</span>
+                  {product.price === product.discountPrice ? <></> : <del>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</del>}
                 </div>
               </div>
             </div>

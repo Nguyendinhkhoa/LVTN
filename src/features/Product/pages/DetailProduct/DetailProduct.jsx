@@ -107,7 +107,7 @@ function DetailProduct(props) {
     }
   };
 
-  const price = '' + product.price;
+  const price = '' + product.discountPrice;
   const onEnter = (event) => {
     if (event.target.value > product.inventoryQty || event.target.value < 1) {
       enqueueSnackbar(`Please enter quantity between 1 to ${product.inventoryQty}`, {
@@ -164,8 +164,11 @@ function DetailProduct(props) {
                           <h3 className="animated fadeIn">{product.name}</h3>
                           <div className="product-price">
                             <span>{price.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</span>
-                            <del>162,000 ₫</del>
-                          </div>
+                            {product.price === product.discountPrice ? <></> :
+                            <del>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</del>
+                          }
+                            </div>
+                          discountPrice
                           <div className="modal-product-meta ltn__product-details-menu-1">
                             <ul>
                               <li>

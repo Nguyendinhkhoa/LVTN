@@ -4,6 +4,7 @@ import banner11 from '../images/banner11.jpg';
 import banner12 from '../images/banner12.jpg';
 import NewProduct from './NewProduct';
 import productApi from '../../../api/productApi';
+import { Link } from 'react-router-dom';
 LatestProduct.propTypes = {};
 function LatestProduct(props) {
   const [listProduct, setListProduct] = useState([]);
@@ -36,18 +37,19 @@ function LatestProduct(props) {
                 <div className="col-lg-12 col-sm-6">
                   <div className="ltn__banner-item">
                     <div className="ltn__banner-img">
-                      <a href="shop.html">
+                      
+                      <Link to="/products">
                         <img src={banner11} alt="Banner Image" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
                 <div className="col-lg-12 col-sm-6">
                   <div className="ltn__banner-item">
                     <div className="ltn__banner-img">
-                      <a href="shop.html">
+                      <Link to="/products">
                         <img src={banner12} alt="Banner Image" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -111,9 +111,9 @@ function Product(props) {
                 <div className="widget1 ltn__menu-widget">
                   <h4 className="ltn__widget-title ltn__widget-title-border">Product categories</h4>
                   <li >
-                    <Link to="/products">
+                    <a href="/products">
                       <span>All Category</span>
-                    </Link>
+                    </a>
                   </li>
                   {loading ? <CategorySkelaton/> : <ProductFilter filters={filters} onChange={HandleFiltersChange} />}
                   

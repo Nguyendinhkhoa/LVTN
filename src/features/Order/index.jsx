@@ -101,7 +101,7 @@ function Order(props) {
     handleClose();
   };
   const handleSubmitOrder = () => {
-    if (!userInfo.phone || !userInfo.name) {
+    if (!userInfo.phone || !userInfo.address) {
       enqueueSnackbar(`Please enter all information when ordering`, {
         variant: 'error',
       });
@@ -274,12 +274,8 @@ function Order(props) {
                     <td>{cartSubtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</td>
                   </tr>
                   <tr>
-                    <td>Shipping and Handing</td>
+                    <td>Shipping and Handing (Temporary price)</td>
                     <td>15,000₫</td>
-                  </tr>
-                  <tr>
-                    <td>Vat</td>
-                    <td>$00.00</td>
                   </tr>
                   <tr>
                     <td>

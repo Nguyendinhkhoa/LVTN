@@ -42,8 +42,8 @@ function ViewOder(props) {
           case 'Complete':
             setOrderStatus(3);
             break;
-            default:
-              setOrderStatus(0);
+          default:
+            setOrderStatus(0);
         }
         let initialValue = 0;
         let sum = order.listCart.reduce(function (previousValue, currentValue) {
@@ -59,7 +59,7 @@ function ViewOder(props) {
   }, [orderStatus1]);
   const handleCancel = async () => {
     try {
-      const cancel = await orderApi.cancelOrder({orderId : orderId}  );
+      const cancel = await orderApi.cancelOrder({ orderId: orderId });
       console.log(cancel);
       enqueueSnackbar(`Cancel Order successfully!`, {
         variant: 'success',
@@ -77,9 +77,15 @@ function ViewOder(props) {
         <div className="container">
           <div className="row id-order">
             <div className="info-id">
-              <span>ORDER ID : {orderId}</span>
-              <span style={{ margin: '0 5px' }}> |</span>
-              <span className="order-completed-status">{order.orderStatus}</span>
+              {order.shippingCode ? (
+                <>
+                  <span>SHIPPING ID : {order.shippingCode}</span>
+                  <span style={{ margin: '0 5px' }}> |</span>
+                  <span className="order-completed-status">{order.orderStatus}</span>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div className="_1J7vLy">
@@ -161,7 +167,7 @@ function ViewOder(props) {
                           <td className="price">
                             {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ₫
                           </td>
-                          <td className="quantity">1</td>
+                          <td className="quantity">{item.quantity}</td>
                           <td className="discount-amount">0 ₫</td>
                           <td className="raw-total">
                             {item.priceTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ₫
@@ -179,9 +185,11 @@ function ViewOder(props) {
                   </tr>
                   <tr>
                     <td colSpan={4}>
-                      <span>Phí vận chuyển</span>
+                      <span>Shipping</span>
                     </td>
-                    <td>15.000 ₫</td>
+                    <td>
+                      {order.shippingTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ₫
+                    </td>
                   </tr>
                   <tr>
                     <td colSpan={4}>
@@ -189,13 +197,16 @@ function ViewOder(props) {
                     </td>
                     <td>
                       <span className="sum">
-                        {(cartSubtotal + 15000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ₫
+                        {(cartSubtotal + order.shippingTotal)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                        ₫
                       </span>
                     </td>
                   </tr>
                 </tfoot>
               </table>
-              {orderStatus1 === 0&& orderCancel===false && (
+              {orderStatus1 === 0 && orderCancel === false && (
                 <div className="cancel-button">
                   <button
                     onClick={handleCancel}

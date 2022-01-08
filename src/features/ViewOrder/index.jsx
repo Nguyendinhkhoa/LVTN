@@ -139,11 +139,11 @@ function ViewOder(props) {
               <table className="styles__StyledProductList-sc-ri73gr-3 Nbknf">
                 <thead>
                   <tr>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Giảm giá</th>
-                    <th>Tạm tính</th>
+                    <th>Products</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Temporaty Price</th>
                   </tr>
                 </thead>
                 <tbody>

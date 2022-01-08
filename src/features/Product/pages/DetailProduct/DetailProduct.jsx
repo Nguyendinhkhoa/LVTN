@@ -168,7 +168,6 @@ function DetailProduct(props) {
                             <del>{product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}₫</del>
                           }
                             </div>
-                          discountPrice
                           <div className="modal-product-meta ltn__product-details-menu-1">
                             <ul>
                               <li>

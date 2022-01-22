@@ -8,7 +8,7 @@ const RecommendProduct = (props) => {
      const settings = {
           dots: false,
           infinite: true,
-          slidesToShow: props.amout,
+          slidesToShow: 4,
           slidesToScroll: 1,
           initialSlide: 0,
           autoplay: true,
@@ -26,7 +26,7 @@ const RecommendProduct = (props) => {
               {props.reProduct &&
                 props.reProduct.map((item, idx) => {
                   return (
-                    <div className="card__container--inner--card border-recommend" key={idx}>
+                    <div className="card__container--inner--card border-recommend " key={idx}>
                       <Link to={`/product-detail/${item.slug}`}><img src={item.image} alt="hero_img" /></Link>
                       <div className="product-info">
                         <h2 className="product-title">

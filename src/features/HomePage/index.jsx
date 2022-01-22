@@ -18,6 +18,7 @@ import ScrollTop from '../../components/ScrollTop';
 import RecommendProduct from './components/RecommendProduct';
 import productApi from '../../api/productApi';
 
+
 function HomePage(props) {
   const [listCate, SetlistCate] = useState([]);
   const [reProduct, setReProduct] = useState([]);

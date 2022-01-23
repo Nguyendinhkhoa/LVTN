@@ -30,14 +30,13 @@ function Product(props) {
     totalPage: 1,
     page: 1,
   }); 
-  const [cateSort, SetCateSort] = useState(() => {
+  const cateSort = () => {
     const params = queryString.parse(location.search);
-
     if (Object.keys(params).length === 0) {
       return null;
     }
     return params.category;
-  });
+  };
 
   const [filters, setFilters] = useState({
     limit: 9,
@@ -63,7 +62,7 @@ function Product(props) {
       }
       setLoading(false);
     })();
-  }, [filters]);
+  }, [filters,pagination]);
 
   const handlePageChange = (e, page) => {
     setFilters((prevFilters) => ({

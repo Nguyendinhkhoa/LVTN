@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import './style.css';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -18,7 +17,7 @@ function ResetPassword(props) {
   console.log(params);
   const { enqueueSnackbar } = useSnackbar();
   const [errorMessage,setErrorMessage] = useState(false);
-  const [status, setStatus] = useState(false);
+  // const [status, setStatus] = useState(false);
   const schema = yup.object().shape({
     password: yup
       .string()
@@ -39,7 +38,7 @@ function ResetPassword(props) {
     setErrorMessage(false);
     (async () => {
       try {
-        const fecth = await userApi.resetPass(values, params.token);
+        await userApi.resetPass(values, params.token);
         enqueueSnackbar(`Reset Password Successfully`, {
           variant: 'success',
         });
@@ -52,7 +51,7 @@ function ResetPassword(props) {
         setErrorMessage(true);
       }
     })();
-    setStatus(true);
+    // setStatus(true);
   };
   return (
     <>

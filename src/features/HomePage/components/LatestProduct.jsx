@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import banner11 from '../images/banner11.jpg';
 import banner12 from '../images/banner12.jpg';
 import NewProduct from './NewProduct';
@@ -8,12 +8,12 @@ import { Link } from 'react-router-dom';
 LatestProduct.propTypes = {};
 function LatestProduct(props) {
   const [listProduct, setListProduct] = useState([]);
-  const [params,setParams] = useState({
-      sortBy : '-created',
-      limit : 6,
-  })
   useEffect(() => {
     const fecthProduct = async () => {
+      const params = {
+        sortBy : '-created',
+        limit : 6,
+    }
       const productList = await productApi.getAll(params);
       const arrProduct = productList.results;
       setListProduct(arrProduct);
@@ -39,7 +39,7 @@ function LatestProduct(props) {
                     <div className="ltn__banner-img">
                       
                       <Link to="/products">
-                        <img src={banner11} alt="Banner Image" />
+                        <img src={banner11} alt="Banner" />
                       </Link>
                     </div>
                   </div>
@@ -48,7 +48,7 @@ function LatestProduct(props) {
                   <div className="ltn__banner-item">
                     <div className="ltn__banner-img">
                       <Link to="/products">
-                        <img src={banner12} alt="Banner Image" />
+                        <img src={banner12} alt="Banner" />
                       </Link>
                     </div>
                   </div>

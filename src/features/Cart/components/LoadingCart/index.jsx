@@ -11,7 +11,7 @@ function LoadingCart(props) {
         loop: true,
 
     },)
-  }, []);
+  }, [animationcontainer]);
   return (
     <>
     <div className="container" style={{height: "1000px",marginTop : "100px"}}>

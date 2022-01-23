@@ -13,7 +13,7 @@ function EmptyCart(props) {
       animationData: animation,
       loop: true,
     });
-  }, []);
+  }, [animationcontainer]);
   return (
     <>
       <div className="container" style={{ height: '500px', marginTop: '10px' }}>

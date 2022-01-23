@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SlideInProduct from '../../../Product/components/Slide';
 import SuccessIcon from '../SuccessIcon';
 import { Link } from 'react-router-dom';
@@ -30,7 +29,7 @@ function SuccessOrder(props) {
                     history.push('/products');
                }
              })();         
-     },[])
+     },[history,location.search])
   return loading ? <Loading/> : (
     <>
       <SlideInProduct page="Order Success" />

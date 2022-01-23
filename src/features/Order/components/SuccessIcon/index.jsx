@@ -11,7 +11,7 @@ function SuccessIcon(props) {
       animationData: animation,
       loop: true,
     });
-  },[]);
+  },[animationcontainer]);
   return (
     <>
         <div className="animation" ref={animationcontainer}></div>

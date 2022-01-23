@@ -24,7 +24,7 @@ function Order(props) {
   const [userInfo, setUserInfo] = useState({});
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [show, setShow] = useState(false);
-  const [infoChange, setInfoChange] = useState(false);
+  // const [infoChange, setInfoChange] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -43,11 +43,11 @@ function Order(props) {
           console.log(cart.length);
           const dataId = [];
           cartRes.results.map((item, indx) => {
-            dataId.push(item.id);
+           return dataId.push(item.id);
           });
           let sum = 0;
           cartRes.results.map((item) => {
-            sum += item.priceTotal;
+           return sum += item.priceTotal;
           });
           setCartSubtotal(sum);
           setCartId(dataId);
@@ -57,13 +57,13 @@ function Order(props) {
     } catch (error) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
-  }, []);
+  }, [cart.length,history]);
   useEffect(() => {
     const fecthUser = async () => {
       const UserRes = await userApi.info();
       if (!UserRes.phone || !UserRes.address) {
         console.log('no info');
-        setInfoChange(true);
+
         setShow(true);
       }
       setUserInfo(UserRes);
@@ -97,7 +97,7 @@ function Order(props) {
       phone: values.phoneNumber,
       address: values.addressDelivery,
     });
-    setInfoChange(false);
+
     handleClose();
   };
   const handleSubmitOrder = () => {

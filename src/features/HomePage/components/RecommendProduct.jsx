@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import './style.scss';

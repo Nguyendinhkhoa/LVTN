@@ -34,7 +34,7 @@ function Cart(props) {
           setCart(cart.results);
           let sum = 0;
           cart.results.map((item) => {
-            sum += item.priceTotal;
+            return sum += item.priceTotal;
           });
           setCartSubtotal(sum);
         };
@@ -70,9 +70,10 @@ function Cart(props) {
       Cart.map((item) => (idCart === item.id ? { ...item, quantity: quantityUpdate } : item))
     );
     Cart.map((item) => {
-      sum += item.price * item.quantity;
+     return sum += item.price * item.quantity;
     });
     setCartSubtotal(sum);
+    console.log(cartSubtotal)
     const updateRes = async () => {
       const res = await cartApi.updateQuantity({ quantity: Number(quantityUpdate) }, item.id);
       console.log('res', res);

@@ -16,7 +16,7 @@ function Contact(props) {
               className="col-md-12 col-lg-12 col-xs-12"
               style={{ paddingLeft: '0px', paddingRight: '0px' }}
             >
-              <img className="masthead-avatar desktopImgView" src={banner} />
+              <img className="masthead-avatar desktopImgView" alt='#' src={banner} />
               <div className="centered">Simplifying healthcare &amp; Impacting lives</div>
             </div>
           </div>
@@ -44,7 +44,7 @@ function Contact(props) {
               <div className="row people align-items-center">
                 <div className="col-md-6 col-lg-6 item">
                   <div className="box boxContent1">
-                    <img className="mask-copy-pharma" src={point} />
+                    <img className="mask-copy-pharma" alt='#' src={point} />
                     <p className="boxContent">
                       We cover 1000+ cities and towns across 22000+ pin codes
                     </p>
@@ -52,11 +52,11 @@ function Contact(props) {
                 </div>
                 <div className="col-md-6 col-lg-6 item">
                   <div className="box boxContent2">
-                    <img className="mask-copy-pharma" src={box2} />
+                    <img className="mask-copy-pharma" alt='#' src={box2} />
                     <p className="boxContent">50+ lakh happy customers</p>
                   </div>
                   <div className="box boxContent3">
-                    <img className="mask-copy-pharma" src={box3} />
+                    <img className="mask-copy-pharma" alt='#' src={box3} />
                     <p className="boxContent">
                       Building partnerships to reach every corner of the country
                     </p>

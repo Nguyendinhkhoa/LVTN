@@ -172,8 +172,7 @@ CancelOrder.propTypes = {
 };
 export default function CancelOrder(props) {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(props.activeSteps);
-  console.log(activeStep);
+  const activeStep = props.activeSteps;
   const steps = getSteps();
 
   return (

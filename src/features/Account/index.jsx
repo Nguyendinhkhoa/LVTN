@@ -68,7 +68,7 @@ function Account(props) {
       }
       setLoading(0);
     })();
-  }, [params]);
+  }, [params,pagination]);
 
   // const handleSubmitInfo = async (values) => {
   //   delete values['email'];

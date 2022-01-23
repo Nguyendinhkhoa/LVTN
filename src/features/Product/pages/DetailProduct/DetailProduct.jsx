@@ -8,14 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addtocart } from '../../productSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import Loading from '../../components/LoadingAdd';
-import { Link } from 'react-router-dom';
 import cartApi from '../../../../api/cartApi';
 import { addItem } from '../../productSlice';
 import { incre } from '../../../Auth/userSlice';
 import ScrollTop from '../../../../components/ScrollTop';
 import Slider from 'react-slick';
 function DetailProduct(props) {
-  const [slug, SetSlug] = useState(props.match.params.slug);
+  const slug = props.match.params.slug;
   const [product, SetProduct] = useState({});
   const loggedInUser = useSelector((state) => state.user);
   const isLoggedIn = !!loggedInUser.current.id;
@@ -47,7 +46,7 @@ function DetailProduct(props) {
     };
 
     fecthCart();
-  }, []);
+  }, [dispatch]);
   useEffect(()=>{
     const fecthRecommend = async()=>{
       const reProduct = await productApi.recommend({page : 0 , limit : 10});
@@ -78,7 +77,7 @@ function DetailProduct(props) {
     } catch (error) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
-  }, []);
+  }, [slug]);
 
   const handleSubmit = async () => {
     if (!isLoggedIn) {
@@ -136,7 +135,7 @@ function DetailProduct(props) {
         }
       }
     }
-  }, [quantityAddCart]);
+  }, [quantityAddCart,dispatch,listCart,product.id]);
 
   return (
     <div>

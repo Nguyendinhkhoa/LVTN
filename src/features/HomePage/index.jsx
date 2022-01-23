@@ -224,7 +224,7 @@ function HomePage(props) {
               <div className="ltn__banner-item">
                 <div className="ltn__banner-img">
                   <Link to="/products">
-                    <img src={banner1} alt="Banner Image" />
+                    <img src={banner1} alt="Banner" />
                   </Link>
                 </div>
               </div>
@@ -233,7 +233,7 @@ function HomePage(props) {
               <div className="ltn__banner-item">
                 <div className="ltn__banner-img">
                   <Link to="/products">
-                    <img src={banner2} alt="Banner Image" />
+                    <img src={banner2} alt="Banner" />
                   </Link>
                 </div>
               </div>
@@ -242,7 +242,7 @@ function HomePage(props) {
               <div className="ltn__banner-item">
                 <div className="ltn__banner-img">
                   <Link to="/products">
-                    <img src={banner3} alt="Banner Image" />
+                    <img src={banner3} alt="Banner" />
                   </Link>
                 </div>
               </div>
@@ -252,12 +252,11 @@ function HomePage(props) {
       </div>
       <LatestProduct />
       {reProduct && reProduct.map((item,ind)=>{
-        console.log(item.listProducts.length);
         if(item.listProducts.length >0){
           return <RecommendProduct amout={item.listProducts.length } reProduct={item.listProducts} title={item.name} key={ind}/> ;
         }
         else{
-          return;
+          return true;
         }
       })}
     </>

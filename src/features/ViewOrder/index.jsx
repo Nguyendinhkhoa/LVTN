@@ -56,7 +56,7 @@ function ViewOder(props) {
     } catch (error) {
       console.log('FAILDED TO FETCH PRODUCT LIST', error);
     }
-  }, [orderStatus1]);
+  }, [orderStatus1,orderId]);
   const handleCancel = async () => {
     try {
       const cancel = await orderApi.cancelOrder({ orderId: orderId });

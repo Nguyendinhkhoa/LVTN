@@ -155,7 +155,7 @@ function Header(props) {
                   <ul>
                     <li>
                       <a href="mailto:nguyendinhkhoa1234@gmail.com">
-                        <i className="far fa-envelope"></i> contact@gmail.com
+                        <i className="far fa-envelope"></i> dinhkhoa@gmail.com
                       </a>
                     </li>
                     <li>
